@@ -1,38 +1,26 @@
 package dataStructure;
 
-import utils.Point3D;
-
-public class DNode implements node_data {
-	private	int key;
+public class Dedge implements edge_data {
+	private int Src;
+	private	int Dest;
 	private int Tag;
 	private double Weight;
-	private Point3D Location ;
 	private String Info;
-	
+
 	@Override
-	public int getKey() {
-		return this.key;
+	public int getSrc() {
+		return this.Src;
 	}
 
 	@Override
-	public Point3D getLocation() {
+	public int getDest() {
 
-		return this.Location;
-	}
-
-	@Override
-	public void setLocation(Point3D p) {
-		this.Location=p;
+		return this.Dest;
 	}
 
 	@Override
 	public double getWeight() {
 		return this.Weight;
-	}
-
-	@Override
-	public void setWeight(double w) {
-		this.Weight=w;
 	}
 
 	@Override
@@ -43,18 +31,16 @@ public class DNode implements node_data {
 	@Override
 	public void setInfo(String s) {
 		this.Info=s;
-
 	}
 
 	@Override
 	public int getTag() {
-	return this.Tag;	
+		return this.Tag;
 	}
 
 	@Override
 	public void setTag(int t) {
-	this.Tag=t;
-
+		this.Tag=t;
 	}
 
 }

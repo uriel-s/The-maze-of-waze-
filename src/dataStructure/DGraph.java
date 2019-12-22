@@ -3,6 +3,7 @@ package dataStructure;
 import java.util.Collection;
 
 public class DGraph implements graph{
+DNode node;
 
 	@Override
 	public node_data getNode(int key) {
