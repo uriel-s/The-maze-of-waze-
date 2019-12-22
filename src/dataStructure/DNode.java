@@ -3,58 +3,56 @@ package dataStructure;
 import utils.Point3D;
 
 public class DNode implements node_data {
-
+	int key;
+	Point3D Location ;
+	double Weight;
+	String Info;
+	int Tag;
 	@Override
 	public int getKey() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.key;
 	}
 
 	@Override
 	public Point3D getLocation() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return this.Location;
 	}
 
 	@Override
 	public void setLocation(Point3D p) {
-		// TODO Auto-generated method stub
-
+		this.Location=p;
 	}
 
 	@Override
 	public double getWeight() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.Weight;
 	}
 
 	@Override
 	public void setWeight(double w) {
-		// TODO Auto-generated method stub
-
+		this.Weight=w;
 	}
 
 	@Override
 	public String getInfo() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.Info;
 	}
 
 	@Override
 	public void setInfo(String s) {
-		// TODO Auto-generated method stub
+		this.Info=s;
 
 	}
 
 	@Override
 	public int getTag() {
-		// TODO Auto-generated method stub
-		return 0;
+	return this.Tag;	
 	}
 
 	@Override
 	public void setTag(int t) {
-		// TODO Auto-generated method stub
+	this.Tag=t;
 
 	}
 
