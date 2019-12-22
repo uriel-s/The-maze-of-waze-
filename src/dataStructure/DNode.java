@@ -1,5 +1,7 @@
 package dataStructure;
 
+import java.util.HashMap;
+
 import utils.Point3D;
 
 public class DNode implements node_data {
@@ -8,7 +10,8 @@ public class DNode implements node_data {
 	private double Weight;
 	private Point3D Location ;
 	private String Info;
-	
+	private	HashMap  <Integer, edge_data>  Edges;
+  
 	@Override
 	public int getKey() {
 		return this.key;
@@ -57,4 +60,8 @@ public class DNode implements node_data {
 
 	}
 
+	public Dedge getEdge(int dest)
+	{
+	return (Dedge) this.Edges.get(dest);
+}
 }

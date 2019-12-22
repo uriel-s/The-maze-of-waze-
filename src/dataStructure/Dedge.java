@@ -1,12 +1,17 @@
 package dataStructure;
 
 public class Dedge implements edge_data {
+	private	int key;
 	private int Src;
 	private	int Dest;
 	private int Tag;
 	private double Weight;
 	private String Info;
 
+	
+	public int getKey() {
+		return this.key;
+	}
 	@Override
 	public int getSrc() {
 		return this.Src;
