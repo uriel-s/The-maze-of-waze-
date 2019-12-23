@@ -1,10 +1,16 @@
 package dataStructure;
-
 import java.util.Collection;
 import java.util.HashMap;
 
 public class DGraph implements graph{
 	HashMap<Integer, node_data> Vertex;
+
+	
+	public  DGraph() 
+	{
+HashMap h=new HashMap<Integer, node_data>();
+this.Vertex= h;
+	}
 
 	@Override
 	public node_data getNode(int key) {
@@ -28,8 +34,11 @@ public class DGraph implements graph{
 
 	@Override
 	public void connect(int src, int dest, double w) {
-		DNode n = (DNode) this.Vertex.get(src);
-        n.AddEdge(dest,w);  
+		 Dedge e = new Dedge(w);
+	        e.setSrc(src);
+		    e.setDest(dest);
+          	DNode n = (DNode) this.Vertex.get(src);
+		    n.AddEdge(e);  
 	}
 
 	@Override

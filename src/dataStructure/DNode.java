@@ -12,11 +12,19 @@ public class DNode implements node_data {
 	private String Info;
 	private	HashMap  <Integer, edge_data>  Edges;
   
+	public  DNode( int x) {
+this.key=x;
+this.Edges = new HashMap<>();
+}
+	
 	@Override
 	public int getKey() {
 		return this.key;
 	}
 
+	public void SetKey(int x) {
+		 this.key=x;
+	}
 	@Override
 	public Point3D getLocation() {
 
@@ -63,10 +71,15 @@ public class DNode implements node_data {
 	public Dedge getEdge(int dest)
 	{
 	return (Dedge) this.Edges.get(dest);
-}
-	public void AddEdge(DNode dest, double Weight) {
-	dest.setWeight(Weight);
-		this.Edges.put(dest.getKey(),(edge_data) dest);
+    }
+
 	
+	public void AddEdge(Dedge e)
+	{
+     
+     this.Edges.put(this.getKey(),(edge_data) e);
+
 	}
 }
+	
+

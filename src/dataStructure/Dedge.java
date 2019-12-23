@@ -8,7 +8,19 @@ public class Dedge implements edge_data {
 	private double Weight;
 	private String Info;
 
-	
+	public Dedge(double w) {
+		this.Weight=w;
+
+	}
+
+	public void setSrc(int src) {
+		this.Src = src;
+	}
+
+	public void setDest(int dest) {
+		Dest = dest;
+	}
+
 	public int getKey() {
 		return this.key;
 	}
