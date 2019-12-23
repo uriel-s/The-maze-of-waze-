@@ -28,8 +28,8 @@ public class DGraph implements graph{
 
 	@Override
 	public void connect(int src, int dest, double w) {
-		// TODO Auto-generated method stub
-
+		DNode n = (DNode) this.Vertex.get(src);
+        n.AddEdge(dest,w);  
 	}
 
 	@Override

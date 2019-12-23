@@ -64,4 +64,9 @@ public class DNode implements node_data {
 	{
 	return (Dedge) this.Edges.get(dest);
 }
+	public void AddEdge(DNode dest, double Weight) {
+	dest.setWeight(Weight);
+		this.Edges.put(dest.getKey(),(edge_data) dest);
+	
+	}
 }
