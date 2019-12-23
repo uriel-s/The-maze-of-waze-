@@ -75,11 +75,15 @@ this.Edges = new HashMap<>();
 
 	
 	public void AddEdge(Dedge e)
-	{
-     
-     this.Edges.put(this.getKey(),(edge_data) e);
-
+	{  
+     this.Edges.put(e.getDest(),(edge_data) e);
 	}
+
+	public void RemoveEdge(int e)
+	{  
+     this.Edges.remove(e);
+	}
+
 }
 	
 

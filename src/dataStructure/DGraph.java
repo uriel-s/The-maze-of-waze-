@@ -1,15 +1,15 @@
 package dataStructure;
 import java.util.Collection;
 import java.util.HashMap;
-
+import java.util.Collection;
 public class DGraph implements graph{
-	HashMap<Integer, node_data> Vertex;
+	private HashMap<Integer, node_data> Vertex;
+	//private Collection<node_data> collection = new Collection Vertex1 ;
 
-	
 	public  DGraph() 
 	{
-HashMap h=new HashMap<Integer, node_data>();
-this.Vertex= h;
+		HashMap h=new HashMap<Integer, node_data>();
+		this.Vertex= h;
 	}
 
 	@Override
@@ -34,11 +34,11 @@ this.Vertex= h;
 
 	@Override
 	public void connect(int src, int dest, double w) {
-		 Dedge e = new Dedge(w);
-	        e.setSrc(src);
-		    e.setDest(dest);
-          	DNode n = (DNode) this.Vertex.get(src);
-		    n.AddEdge(e);  
+		Dedge e = new Dedge(w);
+		e.setSrc(src);
+		e.setDest(dest);
+		DNode n = (DNode) this.Vertex.get(src);
+		n.AddEdge(e);  
 	}
 
 	@Override
@@ -55,32 +55,33 @@ this.Vertex= h;
 
 	@Override
 	public node_data removeNode(int key) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		//this.Vertex.remove(key);
+		
+		}
+		@Override
+		//for now 
+		public edge_data removeEdge(int src, int dest) {
+			DNode n=(DNode) this.Vertex.get(src);
+			n.RemoveEdge(dest);
+			return n.getEdge(dest);
+		}
 
-	@Override
-	public edge_data removeEdge(int src, int dest) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		@Override
+		public int nodeSize() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
 
-	@Override
-	public int nodeSize() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		@Override
+		public int edgeSize() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
 
-	@Override
-	public int edgeSize() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		@Override
+		public int getMC() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
 
-	@Override
-	public int getMC() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
-
-}
