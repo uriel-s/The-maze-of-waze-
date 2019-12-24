@@ -2,14 +2,20 @@ package dataStructure;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Collection;
+
 public class DGraph implements graph{
+	private int IDcounter;
+	private int Ecounter;
+	private int MC;
 	private HashMap<Integer, node_data> Vertex;
-	//private Collection<node_data> collection = new Collection Vertex1 ;
 
 	public  DGraph() 
 	{
 		HashMap h=new HashMap<Integer, node_data>();
 		this.Vertex= h;
+		IDcounter=0;
+		Ecounter=0;
+		MC=0;
 	}
 
 	@Override
@@ -33,7 +39,8 @@ public class DGraph implements graph{
 	@Override
 	public void addNode(node_data n) {
 		this.Vertex.put(n.getKey(), (DNode) n);
-
+		IDcounter ++;
+		MC++;
 	}
 
 	@Override
@@ -44,6 +51,8 @@ public class DGraph implements graph{
 		e.setWeight(w);
 		DNode n = (DNode) this.Vertex.get(src);
 		n.AddEdge(e);  
+		Ecounter++;
+		MC++;
 	}
 
 	@Override
@@ -53,9 +62,9 @@ public class DGraph implements graph{
 
 	@Override
 	public Collection<edge_data> getE(int node_id) {
-	DNode n = (DNode) this.getNode(node_id);
-			return n.getEdges().values();
-			}
+		DNode n = (DNode) this.getNode(node_id);
+		return n.getEdges().values();
+	}
 
 	@Override
 	public node_data removeNode(int key) 	{
@@ -64,19 +73,28 @@ public class DGraph implements graph{
 		{
 			if(this.Vertex.containsKey(i)) {
 				n=(dataStructure.DNode) this.Vertex.get(i);
-				if( n.getEdge(key)!=null) n.RemoveEdge(key);	 
+				if( n.getEdge(key)!=null) {
+					n.RemoveEdge(key);	 
+					Ecounter--;
+					MC++;
+				}
 			}
 
 		}
 		if(this.Vertex.containsKey(key)) this.Vertex.remove(key); 
+		IDcounter--;
+		MC++;
+
 		return this.Vertex.get(key);
 	}
 	@Override
-	//for now 
+	//not finish 
 	public edge_data removeEdge(int src, int dest) {
 		DNode n=(DNode) this.Vertex.get(src);
-	
+
 		n.RemoveEdge(dest);
+		Ecounter--;
+		MC++;
 		return n.getEdge(dest);
 	}
 
@@ -87,14 +105,13 @@ public class DGraph implements graph{
 
 	@Override
 	public int edgeSize() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.Ecounter;
 	}
 
 	@Override
 	public int getMC() {
 		// TODO Auto-generated method stub
-		return 0;
+		return MC;
 	}
 
 }

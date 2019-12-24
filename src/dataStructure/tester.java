@@ -9,15 +9,24 @@ public class tester {
 
 		DGrahp1.addNode(n);
 		DGrahp1.addNode(n1);
+		
 		System.out.println("Edges before conect "+n.EdgesString());
-		System.out.println(DGrahp1.getVErtex().toString());
+		System.out.println("this is the VErtex "+DGrahp1.getVErtex().toString());
 		DGrahp1.connect(0, 1, 2);
+		System.out.println("edgesSize "+DGrahp1.edgeSize());
+		System.out.println("NodeSize "+DGrahp1.nodeSize());
 		System.out.println("Edges after conect "+n.EdgesString());
 		DGrahp1.removeNode(1);
 		System.out.println(	"****");
 
-		System.out.println(DGrahp1.getVErtex().toString());
+		System.out.println("this is the VErtex "+DGrahp1.getVErtex().toString());
 		System.out.println("Edges after remove "+n.EdgesString());
+	
+		System.out.println(DGrahp1.getMC());
+		System.out.println(DGrahp1.edgeSize());
+		System.out.println(DGrahp1.nodeSize());
+
+
 	}
 
 
