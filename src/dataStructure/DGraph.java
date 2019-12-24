@@ -84,7 +84,7 @@ public class DGraph implements graph{
 		if(this.Vertex.containsKey(key)) this.Vertex.remove(key); 
 		IDcounter--;
 		MC++;
-
+//YA
 		return this.Vertex.get(key);
 	}
 	@Override
