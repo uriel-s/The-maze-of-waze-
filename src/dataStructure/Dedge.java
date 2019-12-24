@@ -60,4 +60,8 @@ public class Dedge implements edge_data {
 		this.Tag=t;
 	}
 
+	public void setWeight(double w) {
+		this.Weight=w;		
+	}
+
 }

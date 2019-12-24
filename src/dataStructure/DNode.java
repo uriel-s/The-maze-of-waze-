@@ -61,7 +61,8 @@ this.Edges = new HashMap<>();
 	public int getTag() {
 	return this.Tag;	
 	}
-
+	
+	
 	@Override
 	public void setTag(int t) {
 	this.Tag=t;
@@ -79,10 +80,24 @@ this.Edges = new HashMap<>();
      this.Edges.put(e.getDest(),(edge_data) e);
 	}
 
+	
 	public void RemoveEdge(int e)
 	{  
      this.Edges.remove(e);
 	}
+
+	public String EdgesString() {
+	return this.Edges.toString();
+}
+	
+public String toString()
+{ String s = Integer.toString(this.key);
+	return s;
+	}
+
+public HashMap<Integer, edge_data> getEdges() {
+	return this.Edges;
+}
 
 }
 	
