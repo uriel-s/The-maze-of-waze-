@@ -3,13 +3,13 @@ public class tester {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		DNode n = new DNode(0);
-		DNode n1 = new DNode(1);
+		DNode n = new DNode();
+		DNode n1 = new DNode();
 		DGraph DGrahp1 = new DGraph();
 
 		DGrahp1.addNode(n);
 		DGrahp1.addNode(n1);
-		
+
 		System.out.println("Edges before conect "+n.EdgesString());
 		System.out.println("this is the VErtex "+DGrahp1.getVErtex().toString());
 		DGrahp1.connect(0, 1, 2);
@@ -17,14 +17,14 @@ public class tester {
 		System.out.println("NodeSize "+DGrahp1.nodeSize());
 		System.out.println("Edges after conect "+n.EdgesString());
 		DGrahp1.removeNode(1);
-		System.out.println(	"****");
+		System.out.println(	"remove n1");
 
 		System.out.println("this is the VErtex "+DGrahp1.getVErtex().toString());
 		System.out.println("Edges after remove "+n.EdgesString());
-	
-		System.out.println(DGrahp1.getMC());
-		System.out.println(DGrahp1.edgeSize());
-		System.out.println(DGrahp1.nodeSize());
+
+		System.out.println("mc="+DGrahp1.getMC());
+		System.out.println("edgesSize= "+DGrahp1.edgeSize());
+		System.out.println("NodeSize= "+DGrahp1.nodeSize());
 
 
 	}

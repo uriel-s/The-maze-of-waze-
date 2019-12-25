@@ -1,7 +1,7 @@
 package dataStructure;
 
 import java.util.HashMap;
-
+import dataStructure.DGraph;
 import utils.Point3D;
 
 public class DNode implements node_data {
@@ -11,19 +11,31 @@ public class DNode implements node_data {
 	private Point3D Location ;
 	private String Info;
 	private	HashMap  <Integer, edge_data>  Edges;
-  
-	public  DNode( int x) {
-this.key=x;
-this.Edges = new HashMap<>();
-}
-	
+	private boolean Visited;
+
+
+
+	public  DNode() {
+		this.key=DGraph.I;
+		DGraph.I++;
+		this.Edges = new HashMap<>();
+		this.Visited=false;
+	}
+	public boolean isVisited() {
+		return this.Visited;
+	}
+
+	public void setVisited(boolean b) {
+		this.Visited=b;
+	}
+
 	@Override
 	public int getKey() {
 		return this.key;
 	}
 
 	public void SetKey(int x) {
-		 this.key=x;
+		this.key=x;
 	}
 	@Override
 	public Point3D getLocation() {
@@ -59,46 +71,46 @@ this.Edges = new HashMap<>();
 
 	@Override
 	public int getTag() {
-	return this.Tag;	
+		return this.Tag;	
 	}
-	
-	
+
+
 	@Override
 	public void setTag(int t) {
-	this.Tag=t;
+		this.Tag=t;
 
 	}
 
 	public Dedge getEdge(int dest)
 	{
-	return (Dedge) this.Edges.get(dest);
-    }
-
-	
-	public void AddEdge(Dedge e)
-	{  
-     this.Edges.put(e.getDest(),(edge_data) e);
+		return (Dedge) this.Edges.get(dest);
 	}
 
-	
+
+	public void AddEdge(Dedge e)
+	{  
+		this.Edges.put(e.getDest(),(edge_data) e);
+	}
+
+
 	public void RemoveEdge(int e)
 	{  
-     this.Edges.remove(e);
+		this.Edges.remove(e);
 	}
 
 	public String EdgesString() {
-	return this.Edges.toString();
-}
-	
-public String toString()
-{ String s = Integer.toString(this.key);
+		return this.Edges.toString();
+	}
+
+	public String toString()
+	{ String s = Integer.toString(this.key);
 	return s;
 	}
 
-public HashMap<Integer, edge_data> getEdges() {
-	return this.Edges;
-}
+	public HashMap<Integer, edge_data> getEdges() {
+		return this.Edges;
+	}
 
 }
-	
+
 
