@@ -40,8 +40,7 @@ public class DGraph implements graph ,Serializable{
 		if(!Vertex.containsKey(dest))
 			throw new  RuntimeException("dest not exist");
 		DNode n =  (DNode) this.Vertex.get(src);
-		if(!n.getEdges().containsKey(dest)) throw new  
-		RuntimeException("edge not exist"); ;
+		if(!n.getEdges().containsKey(dest)) return null;
 
 		Dedge e=n.getEdge(dest); 
 		return e;

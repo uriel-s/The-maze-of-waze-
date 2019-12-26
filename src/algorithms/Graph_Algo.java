@@ -100,8 +100,16 @@ public class Graph_Algo implements graph_algorithms{
 		Rootconect(root);
 		while(iter.hasNext()) 
 		{
-		DNode n= (DNode) iter.next();
-		if (!n.isVisited() )return false;
+			DNode n= (DNode) iter.next();
+			if (!n.isVisited() )return false;
+		}
+		all0(g);
+
+		iter=g.getV().iterator();
+		while(iter.hasNext()) 
+		{
+			DNode n= (DNode) iter.next();
+			if(ConnectWith(n.getKey(),root.getKey())==false) return false;
 		}
 		return true;
 	}
@@ -118,6 +126,7 @@ public class Graph_Algo implements graph_algorithms{
 	//		}
 	//		return null;
 	//	}
+
 
 
 	public void all0(DGraph g) {
@@ -150,6 +159,29 @@ public class Graph_Algo implements graph_algorithms{
 		int key= e.getDest();
 		DNode n = (DNode) g.getVErtex().get(key);
 		Rootconect(n) ;
+
+	}
+	public boolean ConnectWith(int src,int dest) {
+		DNode n = (DNode) g.getNode(src);
+		n.setVisited(true);
+		if( n.getEdge(dest)!=null ) return true;
+
+		Iterator<edge_data> iter= g.getE(n.getKey()).iterator();
+		Dedge e=  (Dedge) iter.next();		
+
+		while(iter.hasNext())
+		{
+			int key=e.getKey();
+			n = (DNode) g.getVErtex().get(key);
+			if(ConnectWith(key, dest))return true;
+			e=(Dedge) iter.next();
+		}
+		int key=e.getKey();
+		n = (DNode) g.getVErtex().get(key);
+		if(ConnectWith(key, dest))return true;
+
+		return false;
+
 
 	}
 

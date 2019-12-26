@@ -5,10 +5,15 @@ public class tester {
 		// TODO Auto-generated method stub
 		DNode n = new DNode();
 		DNode n1 = new DNode();
-		DGraph DGrahp1 = new DGraph();
+		DNode n2 = new DNode();
+		DNode n3 = new DNode();
 
+
+		DGraph DGrahp1 = new DGraph();
 		DGrahp1.addNode(n);
 		DGrahp1.addNode(n1);
+		DGrahp1.addNode(n2);
+		//DGrahp1.addNode(n3);
 
 		System.out.println("Edges before conect "+n.EdgesString());
 		System.out.println("this is the VErtex "+DGrahp1.getVErtex().toString());
