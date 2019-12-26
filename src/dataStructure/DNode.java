@@ -20,6 +20,7 @@ public class DNode implements node_data {
 		DGraph.I++;
 		this.Edges = new HashMap<>();
 		this.Visited=false;
+		this.Weight=0;
 	}
 	public boolean isVisited() {
 		return this.Visited;

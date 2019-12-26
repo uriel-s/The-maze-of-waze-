@@ -103,8 +103,11 @@ public class Graph_Algo implements graph_algorithms{
 			//if one of the Node isnt painting return false;
 		{
 			DNode n= (DNode) iter.next();
-			if (!n.isVisited() )return false;
-		//	System.out.println("Node N is rootconect "+n.getKey());
+			if (!n.isVisited() ) { 
+				System.out.println("Node N is rootconect "+n.getKey());
+				return false;
+			}
+			
 
 		}
 		all0(g);
@@ -122,18 +125,7 @@ public class Graph_Algo implements graph_algorithms{
 		return true;
 	}
 
-	//	public DNode Findroot(DGraph g)
-	//	{
-	//		for(int i=0;i<g.nodeSize();i++)
-	//		{
-	//			if (g.getVErtex().containsKey(i)) 
-	//			{
-	//				return (DNode) g.getVErtex().get(i);
-	//
-	//			}	
-	//		}
-	//		return null;
-	//	}
+	
 
 
 
@@ -198,7 +190,8 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public double shortestPathDist(int src, int dest) {
-		// TODO Auto-generated method stub
+i
+		
 		return 0;
 	}
 
