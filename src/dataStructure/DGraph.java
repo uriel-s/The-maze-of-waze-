@@ -88,20 +88,25 @@ public class DGraph implements graph ,Serializable{
 	@Override
 	public node_data removeNode(int key)
 	{
-		if(!Vertex.containsKey(key))
-			throw new  RuntimeException("node is not exist");
+		if(!Vertex.containsKey(key)) throw new  RuntimeException("node is not exist");
+		
 		Iterator<node_data> itrerator= this.getV().iterator();
 		DNode n= (DNode) itrerator.next();
+
 		while(itrerator.hasNext())
 		{
+			System.out.println(n.getKey());
+
 			if (n.getEdges().containsKey(key))
 			{
 				n.getEdges().remove(key);
 				Ecounter--;
 				MC++;
-				n =(DNode) itrerator.next();
-			}
+
+			}				n =(DNode) itrerator.next();
+
 		}
+
 		if (n.getEdges().containsKey(key)) 
 		{
 			n.getEdges().remove(key);
@@ -142,7 +147,8 @@ public class DGraph implements graph ,Serializable{
 	@Override
 	public int getMC() {
 		// TODO Auto-generated method stub
-		return MC;
+		
+		return this.MC;
 	}
 
 }

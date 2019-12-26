@@ -1,4 +1,7 @@
 package dataStructure;
+
+import algorithms.Graph_Algo;
+
 public class tester {
 
 	public static void main(String[] args) {
@@ -13,7 +16,7 @@ public class tester {
 		DGrahp1.addNode(n);
 		DGrahp1.addNode(n1);
 		DGrahp1.addNode(n2);
-		//DGrahp1.addNode(n3);
+	//	DGrahp1.addNode(n3);
 
 		System.out.println("Edges before conect "+n.EdgesString());
 		System.out.println("this is the VErtex "+DGrahp1.getVErtex().toString());
@@ -30,9 +33,17 @@ public class tester {
 		System.out.println("mc="+DGrahp1.getMC());
 		System.out.println("edgesSize= "+DGrahp1.edgeSize());
 		System.out.println("NodeSize= "+DGrahp1.nodeSize());
+		System.out.println("******************");
 
+		Graph_Algo g = new  Graph_Algo();
+		g.init(DGrahp1);
+		System.out.println(g);
 
+		
 	}
+
+
+
 
 
 }
