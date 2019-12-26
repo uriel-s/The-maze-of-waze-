@@ -16,7 +16,7 @@ public class tester {
 		DGrahp1.addNode(n);
 		DGrahp1.addNode(n1);
 		DGrahp1.addNode(n2);
-	//	DGrahp1.addNode(n3);
+		DGrahp1.addNode(n3);
 
 		System.out.println("Edges before conect "+n.EdgesString());
 		System.out.println("this is the VErtex "+DGrahp1.getVErtex().toString());
@@ -24,21 +24,21 @@ public class tester {
 		System.out.println("edgesSize "+DGrahp1.edgeSize());
 		System.out.println("NodeSize "+DGrahp1.nodeSize());
 		System.out.println("Edges after conect "+n.EdgesString());
-		DGrahp1.removeNode(1);
-		System.out.println(	"remove n1");
+		
+		
 
-		System.out.println("this is the VErtex "+DGrahp1.getVErtex().toString());
-		System.out.println("Edges after remove "+n.EdgesString());
-
-		System.out.println("mc="+DGrahp1.getMC());
-		System.out.println("edgesSize= "+DGrahp1.edgeSize());
-		System.out.println("NodeSize= "+DGrahp1.nodeSize());
 		System.out.println("******************");
-
+		DGrahp1.connect(0, 1, 2);
+		DGrahp1.connect(0, 2, 2);
+		DGrahp1.connect(1, 0, 2);
+		
+		DGrahp1.connect(1, 2, 2);
+		DGrahp1.connect(2, 0, 2);
+		DGrahp1.connect(2, 1, 2);
+		
 		Graph_Algo g = new  Graph_Algo();
 		g.init(DGrahp1);
-		System.out.println(g);
-
+		System.out.println(g.isConnected());
 		
 	}
 

@@ -97,19 +97,27 @@ public class Graph_Algo implements graph_algorithms{
 		all0(g);
 		Iterator<node_data> iter= g.getV().iterator();
 		DNode root= (DNode) iter.next();
+		//painting all the Nodea that connect with Root.
 		Rootconect(root);
 		while(iter.hasNext()) 
+			//if one of the Node isnt painting return false;
 		{
 			DNode n= (DNode) iter.next();
 			if (!n.isVisited() )return false;
+		//	System.out.println("Node N is rootconect "+n.getKey());
+
 		}
 		all0(g);
-
-		iter=g.getV().iterator();
-		while(iter.hasNext()) 
+		Iterator<node_data> iter2= g.getV().iterator();
+		//checking if every Nodes connect to root
+		iter2.next();
+		while(iter2.hasNext()) 
 		{
-			DNode n= (DNode) iter.next();
-			if(ConnectWith(n.getKey(),root.getKey())==false) return false;
+			DNode n= (DNode) iter2.next();
+			if(ConnectWith (n.getKey(),root.getKey())==false) {	
+				System.out.println("N isnt conect with root " + n.getKey() ); 
+				return false;
+		}
 		}
 		return true;
 	}
@@ -143,7 +151,7 @@ public class Graph_Algo implements graph_algorithms{
 
 	public void Rootconect(DNode root)
 	{
-		if(root.isVisited())return ;
+		if (root.isVisited()) return ;
 		root.setVisited(true);
 
 		Iterator<edge_data> iter= g.getE(root.getKey()).iterator();
@@ -161,17 +169,20 @@ public class Graph_Algo implements graph_algorithms{
 		Rootconect(n) ;
 
 	}
-	public boolean ConnectWith(int src,int dest) {
+	public boolean ConnectWith(int src,int dest) 
+	{
 		DNode n = (DNode) g.getNode(src);
+		if(n.isVisited())return false;
 		n.setVisited(true);
-		if( n.getEdge(dest)!=null ) return true;
-
+		//if( n.getEdge(dest)!=null ) return true;
+		if(n.getEdges().containsKey(dest))return true;
+		
 		Iterator<edge_data> iter= g.getE(n.getKey()).iterator();
 		Dedge e=  (Dedge) iter.next();		
 
 		while(iter.hasNext())
 		{
-			int key=e.getKey();
+			int key= e.getKey();
 			n = (DNode) g.getVErtex().get(key);
 			if(ConnectWith(key, dest))return true;
 			e=(Dedge) iter.next();
