@@ -107,7 +107,7 @@ public class Graph_Algo implements graph_algorithms{
 				System.out.println("Node N is rootconect "+n.getKey());
 				return false;
 			}
-			
+
 
 		}
 		all0(g);
@@ -120,12 +120,12 @@ public class Graph_Algo implements graph_algorithms{
 			if(ConnectWith (n.getKey(),root.getKey())==false) {	
 				System.out.println("N isnt conect with root " + n.getKey() ); 
 				return false;
-		}
+			}
 		}
 		return true;
 	}
 
-	
+
 
 
 
@@ -168,7 +168,7 @@ public class Graph_Algo implements graph_algorithms{
 		n.setVisited(true);
 		//if( n.getEdge(dest)!=null ) return true;
 		if(n.getEdges().containsKey(dest))return true;
-		
+
 		Iterator<edge_data> iter= g.getE(n.getKey()).iterator();
 		Dedge e=  (Dedge) iter.next();		
 
@@ -190,10 +190,57 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public double shortestPathDist(int src, int dest) {
-i
-		
+		this.invinityAll();
+		this.all0(g);
+		g.getNode(src).setWeight(0);
 		return 0;
 	}
+	public void dijkstra (DNode src) 
+	{
+		Iterator<edge_data> I= g.getE(src.getKey()).iterator();
+		Dedge e=  (Dedge) I.next();
+
+		while (I.hasNext() )
+		{
+			DNode nb = (DNode) g.getNode( e.getDest() );
+			double Weight= e.getWeight()+src.getWeight();
+			if(Weight>nb.getWeight()) nb.setWeight(Weight);
+		}
+
+	}
+
+
+
+
+
+
+	public Dedge minEdge(DNode n)
+	{
+		Iterator<edge_data> I= g.getE(n.getKey()).iterator();
+		Dedge e=  (Dedge) I.next();
+		Dedge ans=e;
+		double min ;
+		while (I.hasNext())
+		{
+			e=(Dedge) I.next();
+			if( e.getWeight()>ans.getWeight() ) ans=e;
+
+		}
+		return e;
+	}
+
+	public void invinityAll() 
+	{
+		Iterator<node_data> I= g.getV().iterator();
+		DNode n= (DNode) I.next();
+		while(I.hasNext()) {
+			n.setWeight(Double.MAX_VALUE);
+			n= (DNode) I.next();
+		}
+		n.setWeight(Double.MAX_VALUE);
+
+	}
+
 
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
