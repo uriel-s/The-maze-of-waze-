@@ -99,6 +99,7 @@ public class Graph_Algo implements graph_algorithms{
 		DNode root= (DNode) iter.next();
 		//painting all the Nodea that connect with Root.
 		Rootconect(root);
+		System.out.println("good");
 		while(iter.hasNext()) 
 			//if one of the Node isnt painting return false;
 		{
@@ -131,13 +132,12 @@ public class Graph_Algo implements graph_algorithms{
 
 	public void all0(DGraph g) {
 		Iterator<node_data> itrerator= g.getV().iterator();
-		DNode n= (DNode) itrerator.next();
+		DNode n= new DNode();
 		while( itrerator.hasNext())
 		{		
-			n.setVisited(false);
 			n= (DNode) itrerator.next();
+			n.setVisited(false);
 		}
-		n.setVisited(false);
 
 	}
 
@@ -147,19 +147,15 @@ public class Graph_Algo implements graph_algorithms{
 		root.setVisited(true);
 
 		Iterator<edge_data> iter= g.getE(root.getKey()).iterator();
-		Dedge e=  (Dedge) iter.next();
+		Dedge e=  new Dedge(0);
 
 		while(iter.hasNext())
 		{
+			e=  (Dedge) iter.next();
 			int key= e.getDest();
 			DNode n = (DNode) g.getVErtex().get(key);
 			Rootconect(n) ;
-			e=(Dedge) iter.next();
 		}
-		int key= e.getDest();
-		DNode n = (DNode) g.getVErtex().get(key);
-		Rootconect(n) ;
-
 	}
 	public boolean ConnectWith(int src,int dest) 
 	{
@@ -190,26 +186,63 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public double shortestPathDist(int src, int dest) {
+		// set all the  Nodes wight= infinit .src Node 0 
 		this.invinityAll();
 		this.all0(g);
-		g.getNode(src).setWeight(0);
-		return 0;
+		DNode Src = (DNode) g.getNode(src);
+		DNode Dst = (DNode) g.getNode(dest);
+
+		Src.setWeight(0);
+		Sourcdijkstra(Src);
+
+
+		return Dst.getWeight();
+
 	}
-	public void dijkstra (DNode src) 
+
+
+	public void Sourcdijkstra (DNode src) 
+	{
+		Iterator<edge_data> I= g.getE(src.getKey()).iterator();
+		Dedge e=  (Dedge) I.next();
+		//checking all the nibires for the min wight
+		while (I.hasNext() )
+		{
+			minWeight(e);
+			e=(Dedge) I.next();
+		}
+		//checking  the last nibier for the min wight
+		minWeight(e);
+		src.setVisited(true);
+		NeighborsDijkstra(src);
+	}
+
+	public void NeighborsDijkstra (DNode src)
 	{
 		Iterator<edge_data> I= g.getE(src.getKey()).iterator();
 		Dedge e=  (Dedge) I.next();
 
+
 		while (I.hasNext() )
 		{
-			DNode nb = (DNode) g.getNode( e.getDest() );
-			double Weight= e.getWeight()+src.getWeight();
-			if(Weight>nb.getWeight()) nb.setWeight(Weight);
-		}
+			DNode n =(DNode) g.getNode(e.getDest());
+			Sourcdijkstra(n);
+			e=(Dedge) I.next();
+		}	
+		DNode n =(DNode) g.getNode(e.getDest());
+		Sourcdijkstra(n);
 
 	}
 
 
+
+	public void  minWeight(Dedge e)
+	{
+		DNode dest = (DNode) g.getNode( e.getDest() );
+		DNode src = (DNode) g.getNode( e.getSrc() );
+		double Weight= e.getWeight()+src.getWeight();
+		if(Weight>dest.getWeight()) dest.setWeight(Weight);	
+	}
 
 
 
@@ -240,6 +273,7 @@ public class Graph_Algo implements graph_algorithms{
 		n.setWeight(Double.MAX_VALUE);
 
 	}
+
 
 
 	@Override
