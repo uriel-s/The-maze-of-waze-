@@ -99,7 +99,6 @@ public class Graph_Algo implements graph_algorithms{
 		DNode root= (DNode) iter.next();
 		//painting all the Nodea that connect with Root.
 		Rootconect(root);
-		System.out.println("good");
 		while(iter.hasNext()) 
 			//if one of the Node isnt painting return false;
 		{
@@ -112,6 +111,7 @@ public class Graph_Algo implements graph_algorithms{
 
 		}
 		all0(g);
+
 		Iterator<node_data> iter2= g.getV().iterator();
 		//checking if every Nodes connect to root
 		iter2.next();
@@ -166,22 +166,17 @@ public class Graph_Algo implements graph_algorithms{
 		if(n.getEdges().containsKey(dest))return true;
 
 		Iterator<edge_data> iter= g.getE(n.getKey()).iterator();
-		Dedge e=  (Dedge) iter.next();		
+		Dedge e= new Dedge(0); 
 
 		while(iter.hasNext())
 		{
+			e=(Dedge) iter.next();
 			int key= e.getKey();
 			n = (DNode) g.getVErtex().get(key);
 			if(ConnectWith(key, dest))return true;
-			e=(Dedge) iter.next();
 		}
-		int key=e.getKey();
-		n = (DNode) g.getVErtex().get(key);
-		if(ConnectWith(key, dest))return true;
 
 		return false;
-
-
 	}
 
 	@Override
@@ -191,11 +186,9 @@ public class Graph_Algo implements graph_algorithms{
 		this.all0(g);
 		DNode Src = (DNode) g.getNode(src);
 		DNode Dst = (DNode) g.getNode(dest);
-
 		Src.setWeight(0);
+
 		Sourcdijkstra(Src);
-
-
 		return Dst.getWeight();
 
 	}
@@ -204,15 +197,16 @@ public class Graph_Algo implements graph_algorithms{
 	public void Sourcdijkstra (DNode src) 
 	{
 		Iterator<edge_data> I= g.getE(src.getKey()).iterator();
-		Dedge e=  (Dedge) I.next();
+		Dedge e= new Dedge(0);
 		//checking all the nibires for the min wight
+
 		while (I.hasNext() )
 		{
-			minWeight(e);
 			e=(Dedge) I.next();
+
+			minWeight(e);
 		}
 		//checking  the last nibier for the min wight
-		minWeight(e);
 		src.setVisited(true);
 		NeighborsDijkstra(src);
 	}
@@ -220,18 +214,13 @@ public class Graph_Algo implements graph_algorithms{
 	public void NeighborsDijkstra (DNode src)
 	{
 		Iterator<edge_data> I= g.getE(src.getKey()).iterator();
-		Dedge e=  (Dedge) I.next();
-
-
+		Dedge e=  new Dedge(0);
 		while (I.hasNext() )
 		{
+			e=(Dedge) I.next();
 			DNode n =(DNode) g.getNode(e.getDest());
 			Sourcdijkstra(n);
-			e=(Dedge) I.next();
 		}	
-		DNode n =(DNode) g.getNode(e.getDest());
-		Sourcdijkstra(n);
-
 	}
 
 
@@ -247,20 +236,20 @@ public class Graph_Algo implements graph_algorithms{
 
 
 
-	public Dedge minEdge(DNode n)
-	{
-		Iterator<edge_data> I= g.getE(n.getKey()).iterator();
-		Dedge e=  (Dedge) I.next();
-		Dedge ans=e;
-		double min ;
-		while (I.hasNext())
-		{
-			e=(Dedge) I.next();
-			if( e.getWeight()>ans.getWeight() ) ans=e;
-
-		}
-		return e;
-	}
+//	public Dedge minEdge(DNode n)
+//	{
+//		Iterator<edge_data> I= g.getE(n.getKey()).iterator();
+//		Dedge e=  (Dedge) I.next();
+//		Dedge ans=e;
+//		double min ;
+//		while (I.hasNext())
+//		{
+//			e=(Dedge) I.next();
+//			if( e.getWeight()>ans.getWeight() ) ans=e;
+//
+//		}
+//		return e;
+//	}
 
 	public void invinityAll() 
 	{

@@ -28,17 +28,12 @@ public class DGraph implements graph ,Serializable{
 	}
 
 	@Override
-	public edge_data getEdge(int src, int dest) {
-		//		if(!Vertex.containsKey(src))
-		//			throw new  RuntimeException("src not exist");
-		//		if(!Vertex.containsKey(dest))
-		//			throw new  RuntimeException("dest not exist");
-
-
+	public edge_data getEdge(int src, int dest) 
+	{
 		if(!this.Vertex.containsKey(src))  
 			throw new  RuntimeException("src not exist");
 		if(!Vertex.containsKey(dest))
-			throw new  RuntimeException("dest not exist");
+			throw new  RuntimeException("destetion not exist");
 		DNode n =  (DNode) this.Vertex.get(src);
 		if(!n.getEdges().containsKey(dest)) return null;
 
@@ -89,12 +84,13 @@ public class DGraph implements graph ,Serializable{
 	public node_data removeNode(int key)
 	{
 		if(!Vertex.containsKey(key)) throw new  RuntimeException("node is not exist");
-		
+
 		Iterator<node_data> itrerator= this.getV().iterator();
-		DNode n= (DNode) itrerator.next();
+		DNode n= new DNode();
 
 		while(itrerator.hasNext())
 		{
+			n =(DNode) itrerator.next();
 			System.out.println(n.getKey());
 
 			if (n.getEdges().containsKey(key))
@@ -102,29 +98,19 @@ public class DGraph implements graph ,Serializable{
 				n.getEdges().remove(key);
 				Ecounter--;
 				MC++;
-
-			}				n =(DNode) itrerator.next();
-
+			}				
 		}
 
-		if (n.getEdges().containsKey(key)) 
-		{
-			n.getEdges().remove(key);
-
-			Ecounter--;
-			MC++;
-		}
 		this.Vertex.remove(key); 
 		IDcounter--;
 		MC++;
 		//YA
 		return this.Vertex.get(key);
-
 	}
 	@Override
+
 	//not finish 
 	public edge_data removeEdge(int src, int dest) {
-
 
 		DNode n=(DNode) this.Vertex.get(src);
 
@@ -147,7 +133,7 @@ public class DGraph implements graph ,Serializable{
 	@Override
 	public int getMC() {
 		// TODO Auto-generated method stub
-		
+
 		return this.MC;
 	}
 
