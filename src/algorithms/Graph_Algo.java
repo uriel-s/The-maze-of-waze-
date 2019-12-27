@@ -186,7 +186,10 @@ public class Graph_Algo implements graph_algorithms{
 		this.all0(g);
 		DNode Src = (DNode) g.getNode(src);
 		DNode Dst = (DNode) g.getNode(dest);
+		System.out.println(Dst.getWeight());
+
 		Src.setWeight(0);
+		System.out.println(Dst.getWeight());
 
 		Sourcdijkstra(Src);
 		return Dst.getWeight();
@@ -195,7 +198,8 @@ public class Graph_Algo implements graph_algorithms{
 
 
 	public void Sourcdijkstra (DNode src) 
-	{
+	{ //need to test the first if
+		if (src.isVisited())return;
 		Iterator<edge_data> I= g.getE(src.getKey()).iterator();
 		Dedge e= new Dedge(0);
 		//checking all the nibires for the min wight
@@ -235,32 +239,30 @@ public class Graph_Algo implements graph_algorithms{
 
 
 
+	public Dedge minEdge(DNode n)
+	{
+		Iterator<edge_data> I= g.getE(n.getKey()).iterator();
+		Dedge e=  (Dedge) I.next();
+		Dedge ans=e;
+		double min ;
+		while (I.hasNext())
+		{
+			e=(Dedge) I.next();
+			if( e.getWeight()>ans.getWeight() ) ans=e;
 
-//	public Dedge minEdge(DNode n)
-//	{
-//		Iterator<edge_data> I= g.getE(n.getKey()).iterator();
-//		Dedge e=  (Dedge) I.next();
-//		Dedge ans=e;
-//		double min ;
-//		while (I.hasNext())
-//		{
-//			e=(Dedge) I.next();
-//			if( e.getWeight()>ans.getWeight() ) ans=e;
-//
-//		}
-//		return e;
-//	}
+		}
+		return e;
+	}
 
 	public void invinityAll() 
 	{
 		Iterator<node_data> I= g.getV().iterator();
-		DNode n= (DNode) I.next();
-		while(I.hasNext()) {
-			n.setWeight(Double.MAX_VALUE);
+		DNode n= new  DNode();
+		while(I.hasNext()) 
+		{
 			n= (DNode) I.next();
+			n.setWeight(Double.MAX_VALUE);
 		}
-		n.setWeight(Double.MAX_VALUE);
-
 	}
 
 
