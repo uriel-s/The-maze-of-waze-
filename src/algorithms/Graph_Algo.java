@@ -104,7 +104,7 @@ public class Graph_Algo implements graph_algorithms{
 		{
 			DNode n= (DNode) iter.next();
 			if (!n.isVisited() ) { 
-				System.out.println("Node N is rootconect "+n.getKey());
+				//System.out.println("Node N is rootconect "+n.getKey());
 				return false;
 			}
 
@@ -119,7 +119,7 @@ public class Graph_Algo implements graph_algorithms{
 		{
 			DNode n= (DNode) iter2.next();
 			if(ConnectWith (n.getKey(),root.getKey())==false) {	
-				System.out.println("N isnt conect with root " + n.getKey() ); 
+				//		System.out.println("N isnt conect with root " + n.getKey() ); 
 				return false;
 			}
 		}
@@ -186,12 +186,12 @@ public class Graph_Algo implements graph_algorithms{
 		this.all0(g);
 		DNode Src = (DNode) g.getNode(src);
 		DNode Dst = (DNode) g.getNode(dest);
-		System.out.println(Dst.getWeight());
 
 		Src.setWeight(0);
-		System.out.println(Dst.getWeight());
 
 		Sourcdijkstra(Src);
+		if(Dst.getWeight()==Double.MAX_VALUE)  			throw new  RuntimeException("Nodes arent connected");
+
 		return Dst.getWeight();
 
 	}
@@ -200,6 +200,8 @@ public class Graph_Algo implements graph_algorithms{
 	public void Sourcdijkstra (DNode src) 
 	{ //need to test the first if
 		if (src.isVisited())return;
+	//	System.out.println("this is "+src.getKey()+" Node");
+
 		Iterator<edge_data> I= g.getE(src.getKey()).iterator();
 		Dedge e= new Dedge(0);
 		//checking all the nibires for the min wight
@@ -212,6 +214,8 @@ public class Graph_Algo implements graph_algorithms{
 		}
 		//checking  the last nibier for the min wight
 		src.setVisited(true);
+		//System.out.println("visited "+src.getKey()+" Node");
+
 		NeighborsDijkstra(src);
 	}
 
@@ -233,8 +237,8 @@ public class Graph_Algo implements graph_algorithms{
 	{
 		DNode dest = (DNode) g.getNode( e.getDest() );
 		DNode src = (DNode) g.getNode( e.getSrc() );
-		double Weight= e.getWeight()+src.getWeight();
-		if(Weight>dest.getWeight()) dest.setWeight(Weight);	
+		double NewWeight= e.getWeight()+src.getWeight();
+		if(NewWeight<dest.getWeight()) dest.setWeight(NewWeight);	
 	}
 
 
