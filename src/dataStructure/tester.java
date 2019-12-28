@@ -1,5 +1,8 @@
 package dataStructure;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import algorithms.Graph_Algo;
 
 public class tester {
@@ -48,6 +51,12 @@ public class tester {
 		System.out.println(g.isConnected());
 		System.out.println(g.shortestPathDist(0, 1));
 		System.out.println(g.shortestPath(0, 1));
+		List<Integer> ans = new ArrayList <Integer> ();	
+ans.add(0);
+ans.add(1);
+ans.add(2);
+ans.add(3);
+	System.out.println(g.TSP(ans));
 	}
 
 

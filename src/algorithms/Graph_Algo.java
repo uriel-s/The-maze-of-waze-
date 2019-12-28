@@ -189,7 +189,8 @@ public class Graph_Algo implements graph_algorithms{
 		Src.setWeight(0);
 
 		Sourcdijkstra(Src);
-		if(Dst.getWeight()==Double.MAX_VALUE)  			throw new  RuntimeException("Nodes arent connected");
+		//if(Dst.getWeight()==Double.MAX_VALUE) 
+		//  			throw new  RuntimeException("Nodes arent connected");
 
 		return Dst.getWeight();
 
@@ -199,7 +200,7 @@ public class Graph_Algo implements graph_algorithms{
 	public void Sourcdijkstra (DNode src) 
 	{ //need to test the first if
 		if (src.isVisited())return;
-	//	System.out.println("this is "+src.getKey()+" Node");
+		//	System.out.println("this is "+src.getKey()+" Node");
 
 		Iterator<edge_data> I= g.getE(src.getKey()).iterator();
 		Dedge e= new Dedge(0);
@@ -240,19 +241,19 @@ public class Graph_Algo implements graph_algorithms{
 		if(NewWeight<dest.getWeight()) {
 			dest.setWeight(NewWeight);	
 			SetShortList(src,dest);
-			}
+		}
 	}
 
- 
-public void SetShortList(DNode src,DNode dest) {	
- List<node_data> ans = new ArrayList <node_data> ();	
- ans.addAll(src.GetShortestPath());
- ans.add(dest);
- dest.setShortestPath(ans);
-}
-	
-	
-	
+
+	public void SetShortList(DNode src,DNode dest) {	
+		List<node_data> ans = new ArrayList <node_data> ();	
+		ans.addAll(src.GetShortestPath());
+		ans.add(dest);
+		dest.setShortestPath(ans);
+	}
+
+
+
 	public Dedge minEdge(DNode n)
 	{
 		Iterator<edge_data> I= g.getE(n.getKey()).iterator();
@@ -283,16 +284,32 @@ public void SetShortList(DNode src,DNode dest) {
 
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
-double x =shortestPathDist(src, dest);
+		double x =shortestPathDist(src, dest);
 		DNode n=(DNode) g.getNode(dest);
-return n.GetShortestPath();		
-		
+		return n.GetShortestPath();		
+
 	}
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
-		// TODO Auto-generated method stub
-		
+		if(!this.isConnected()) return null;
+		//all0(g);		
+		List<node_data> ans = new ArrayList <node_data> ();	
+		List<node_data> tmp = new ArrayList <node_data> ();	
+
+		Iterator<Integer> I= targets.iterator();
+		int	src= I.next();
+		int dest;
+		if(targets.size()<2) return  (List<node_data>) g.getNode(src);
+
+		while(I.hasNext())
+		{
+			dest=I.next();
+			tmp=shortestPath(src, dest);
+			ans.addAll(tmp);
+			src=dest;
+		}
+		return ans;
 	}
 
 	@Override
