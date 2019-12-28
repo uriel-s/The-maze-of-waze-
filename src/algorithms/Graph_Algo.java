@@ -2,6 +2,7 @@ package algorithms;
 
 import java.util.*;
 
+
 import dataStructure.DGraph;
 import dataStructure.DNode;
 import dataStructure.Dedge;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+
 /**
  * This empty class represents the set of graph-theory algorithms
  * which should be implemented as part of Ex2 - Do edit this class.
@@ -237,14 +239,16 @@ public class Graph_Algo implements graph_algorithms{
 		double NewWeight= e.getWeight()+src.getWeight();
 		if(NewWeight<dest.getWeight()) {
 			dest.setWeight(NewWeight);	
-				SetShortList(src,dest);
+			SetShortList(src,dest);
 			}
 	}
 
-
-public void SetShortList(DNode src,DNode dest)
-{
-//	 List<node_data>. 
+ 
+public void SetShortList(DNode src,DNode dest) {	
+ List<node_data> ans = new ArrayList <node_data> ();	
+ ans.addAll(src.GetShortestPath());
+ ans.add(dest);
+ dest.setShortestPath(ans);
 }
 	
 	
@@ -279,14 +283,16 @@ public void SetShortList(DNode src,DNode dest)
 
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
-		// TODO Auto-generated method stub
-		return null;
+double x =shortestPathDist(src, dest);
+		DNode n=(DNode) g.getNode(dest);
+return n.GetShortestPath();		
+		
 	}
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override

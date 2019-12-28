@@ -30,7 +30,7 @@ public class tester {
 		//System.out.println("n0 Edges after conect "+n.EdgesString());
 		//System.out.println("******************");
 
-		DGrahp1.connect(0, 1, 1128);
+		DGrahp1.connect(0, 1, 18);
 		DGrahp1.connect(0, 2, 22);
 		DGrahp1.connect(1, 0, 22);	
 		DGrahp1.connect(1, 2, 22);
@@ -47,7 +47,7 @@ public class tester {
 		g.init(DGrahp1);
 		System.out.println(g.isConnected());
 		System.out.println(g.shortestPathDist(0, 1));
-
+		System.out.println(g.shortestPath(0, 1));
 	}
 
 

@@ -1,5 +1,6 @@
 package dataStructure;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class DNode implements node_data {
 		this.Edges = new HashMap<>();
 		this.Visited=false;
 		this.Weight=0;
+		 ShortestPath = new ArrayList <node_data> ();	
 		ShortestPath.add(this);
 	}
 	public boolean isVisited() {
@@ -85,6 +87,17 @@ public class DNode implements node_data {
 
 	}
 
+	public  List<node_data> GetShortestPath()
+	{
+		return this.ShortestPath;
+	}
+
+	public  void setShortestPath(List l) {
+		this.ShortestPath=l;
+	}
+
+	
+	
 	public Dedge getEdge(int dest)
 	{
 		return (Dedge) this.Edges.get(dest);
