@@ -18,9 +18,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 /**
  * This empty class represents the set of graph-theory algorithms
  * which should be implemented as part of Ex2 - Do edit this class.
@@ -238,11 +235,20 @@ public class Graph_Algo implements graph_algorithms{
 		DNode dest = (DNode) g.getNode( e.getDest() );
 		DNode src = (DNode) g.getNode( e.getSrc() );
 		double NewWeight= e.getWeight()+src.getWeight();
-		if(NewWeight<dest.getWeight()) dest.setWeight(NewWeight);	
+		if(NewWeight<dest.getWeight()) {
+			dest.setWeight(NewWeight);	
+				SetShortList(src,dest);
+			}
 	}
 
 
-
+public void SetShortList(DNode src,DNode dest)
+{
+//	 List<node_data>. 
+}
+	
+	
+	
 	public Dedge minEdge(DNode n)
 	{
 		Iterator<edge_data> I= g.getE(n.getKey()).iterator();

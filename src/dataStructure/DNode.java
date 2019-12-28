@@ -1,6 +1,8 @@
 package dataStructure;
 
 import java.util.HashMap;
+import java.util.List;
+
 import dataStructure.DGraph;
 import utils.Point3D;
 
@@ -12,7 +14,7 @@ public class DNode implements node_data {
 	private String Info;
 	private	HashMap  <Integer, edge_data>  Edges;
 	private boolean Visited;
-
+	private List<node_data> ShortestPath;
 
 
 	public  DNode() {
@@ -21,6 +23,7 @@ public class DNode implements node_data {
 		this.Edges = new HashMap<>();
 		this.Visited=false;
 		this.Weight=0;
+		ShortestPath.add(this);
 	}
 	public boolean isVisited() {
 		return this.Visited;
