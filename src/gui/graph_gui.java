@@ -6,19 +6,25 @@ import java.awt.Graphics;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.LinkedList;
-
+import utils.*;
+import dataStructure.*;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 import utils.Point3D;
 
 public class graph_gui extends JFrame implements ActionListener, MouseListener
 {
 	LinkedList<Point3D> points = new LinkedList<Point3D>();
+	DGraph gr=new DGraph();
 	
 	public graph_gui()
 	{
@@ -29,10 +35,13 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 	{
 		this.setSize(500, 500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 		MenuBar menuBar = new MenuBar();
-		Menu menu = new Menu("Menu");
-		menuBar.add(menu);
+		Menu menu1 = new Menu("Menu");
+		Menu menu2 = new Menu("file");
+
+		menuBar.add(menu1);
+		menuBar.add(menu2);
+
 		this.setMenuBar(menuBar);
 		
 		MenuItem item1 = new MenuItem("Item 1");
@@ -41,8 +50,8 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 		MenuItem item2 = new MenuItem("Item 2");
 		item2.addActionListener(this);
 		
-		menu.add(item1);
-		menu.add(item2);
+		menu1.add(item1);
+		menu2.add(item2);
 		
 		this.addMouseListener(this);
 	}
@@ -57,7 +66,7 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 		{
 			g.setColor(Color.BLUE);
 			g.fillOval((int)p.x(), (int)p.y(), 10, 10);
-			
+			g.drawString("2", (int)p.x(), (int)p.y()-6);
 			if(prev != null)
 			{
 				g.setColor(Color.RED);
@@ -65,6 +74,7 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 						(int)prev.x(), (int)prev.y());
 				
 				g.drawString("5", (int)((p.x()+prev.x())/2),(int)((p.y()+prev.y())/2));
+				
 			}
 			
 			prev = p;
@@ -103,7 +113,7 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 	public void mousePressed(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		Point3D p = new Point3D(x,y);
+		DNode d = new DNode();
 		points.add(p);
 		repaint();
 		System.out.println("mousePressed");
@@ -125,5 +135,12 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 	@Override
 	public void mouseExited(MouseEvent e) {
 		System.out.println("mouseExited");
+	}
+
+
+	public static void main(String [] args) {
+		graph_gui g = new graph_gui();
+		g.setVisible(true);
+
 	}
 }
