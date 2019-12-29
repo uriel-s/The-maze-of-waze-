@@ -1,5 +1,7 @@
 package dataStructure;
 
+import java.util.Iterator;
+
 public class Dedge implements edge_data {
 	private	int key;
 	private int Src;
@@ -63,5 +65,17 @@ public class Dedge implements edge_data {
 	public void setWeight(double w) {
 		this.Weight=w;		
 	}
+
+	public Dedge copyE() {
+		Dedge ans = new Dedge(0);
+		ans.Weight=this.Weight;
+		ans.key=this.Dest;
+		ans.Src=this.Src;
+		ans.Tag=this.Tag;
+		ans.Info=this.Info;
+		return ans;
+	}
+
+	
 
 }

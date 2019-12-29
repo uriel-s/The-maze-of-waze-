@@ -27,10 +27,25 @@ import java.io.PrintWriter;
  *
  */
 public class Graph_Algo implements graph_algorithms{
+
+	public DGraph getG() {
+		return g;
+	}
+	public void setG(DGraph g) {
+		this.g = g;
+	}
+	public void setG(graph graph) {
+		this.g = (DGraph) graph;
+	}
+
+
 	DGraph g;
 	public List<node_data> list = new ArrayList <node_data> ();	
 
-
+	public Graph_Algo()
+	{
+		this.g = new DGraph();
+	}
 	public void init(graph g) {
 		this.g=(DGraph) g;		
 	}
@@ -314,9 +329,12 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public graph copy() {
-		// TODO Auto-generated method stub
-		return null;
+			
+		return g.DGraphCopy(g); 
+
 	}
+
+
 	public Iterator<node_data> iterator() {
 		return this.list.iterator();
 	}

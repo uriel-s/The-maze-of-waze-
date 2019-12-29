@@ -47,16 +47,31 @@ public class tester {
 		//DGrahp1.connect(2, 1, 2);
 
 		Graph_Algo g = new  Graph_Algo();
+		Graph_Algo g2 = new  Graph_Algo();
+		DGraph DGrahp2 = new DGraph();
 		g.init(DGrahp1);
+		g2.init(g.copy());		
 		System.out.println(g.isConnected());
 		System.out.println(g.shortestPathDist(0, 1));
 		System.out.println(g.shortestPath(0, 1));
 		List<Integer> ans = new ArrayList <Integer> ();	
-ans.add(0);
-ans.add(1);
-ans.add(2);
-ans.add(3);
-	System.out.println(g.TSP(ans));
+		ans.add(0);
+		ans.add(1);
+		ans.add(2);
+		ans.add(3);
+		System.out.println(g.TSP(ans));
+		System.out.println(g2.TSP(ans));
+		System.out.println(g.getG().getMC());
+
+		System.out.println(g2.getG().getMC());
+		System.out.println(g2.getG().getE(0));
+
+		//System.out.println(g2.isConnected());
+		//System.out.println(g2.TSP(ans));
+		DGrahp1.removeEdge(0, 1);
+		System.out.println(g.getG().edgeSize());
+		System.out.println(g2.getG().edgeSize());
+
 	}
 
 

@@ -19,7 +19,33 @@ public class DGraph implements graph ,Serializable{
 		Ecounter=0;
 		MC=0;
 	}
+	public DGraph DGraphCopy (DGraph g)
+	{
+		DGraph ans = new DGraph();
+		ans.IDcounter=g.Ecounter;
+		ans.Ecounter=g.Ecounter;
+		ans.MC=g.MC;
+		ans.IDcounter=g.IDcounter;
+		ans.Vertex=DeepCopyVertex(g.getVErtex());
+return ans;
+	}	
 
+	public HashMap<Integer, node_data> DeepCopyVertex(HashMap<Integer, node_data> vertex)
+	{ 
+		HashMap<Integer, node_data> ans = new HashMap<>(); 	
+		Iterator<node_data> I=   this.getV().iterator();
+		DNode n= new  DNode();
+		DNode copiedNode = new DNode();
+		while(I.hasNext()) 
+		{
+			n=  (DNode) I.next();
+			copiedNode=  n.copyN(n);
+			ans.put(copiedNode.getKey(), copiedNode);
+		}
+		return ans;
+	}
+	
+	
 	@Override
 	public node_data getNode(int key) {
 		if (this.Vertex.isEmpty())return null;
@@ -136,5 +162,6 @@ public class DGraph implements graph ,Serializable{
 
 		return this.MC;
 	}
+
 
 }
