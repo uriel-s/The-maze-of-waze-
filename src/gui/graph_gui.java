@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Collection;
 import java.util.LinkedList;
 import utils.*;
 import dataStructure.*;
@@ -20,8 +21,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 public class graph_gui extends JFrame implements ActionListener, MouseListener
-//JFrame implements ActionListener, MouseListener
-//extends JFrame implements ActionListener, MouseListener
+
 {
 	DGraph gr;
 
@@ -55,82 +55,102 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 		menu1.add(item2);
 
 		this.addMouseListener(this);
-		
+
 	}
 
-	public void paint(Graphics g)
-	{
-		super.paint(g);
+	public void paint() {
+		StdDraw.setCanvasSize(700, 500);
+		StdDraw.setXscale(-100,100);
+		StdDraw.setYscale(-100,100);
+		Collection<node_data> search = gr.getV();
+		StdDraw.setPenRadius(0.005);
 
-
-		for (node_data d : gr.getV()) 
+		for (node_data d : search) 
 		{
-			g.setColor(Color.BLUE);
-			int k = d.getKey();
-			int x = d.getLocation().ix();
-			int y = d.getLocation().iy();
+			StdDraw.setPenColor(Color.BLUE);
+			StdDraw.setPenRadius(0.015);
 
-			g.fillOval(x, y, 10, 10);
-			g.drawString(""+k , x, y-6);
-			for(edge_data e :  gr.getE(k))
+			int k = d.getKey();
+			double x = d.getLocation().x();
+			double y = d.getLocation().y();
+			StdDraw.point(x, y);
+			StdDraw.text(x,y+4,""+k);
+
+			for(edge_data e :  gr.getE(k)) 
 			{
-				g.setColor(Color.RED);
+				StdDraw.setPenColor(Color.RED);
+				StdDraw.setPenRadius(0.004);
 				int dest = e.getDest();
 				node_data n = gr.getNode(dest);
-				int x1 = n.getLocation().ix();
-				int y1 = n.getLocation().iy();
-				g.drawLine(x, y, x1, y1);
-				g.setColor(Color.BLACK);
-				g.drawString(""+ e.getWeight(),(int)(x+x1)/2,(int)(y+y1)/2);
-				g.setColor(Color.YELLOW);
-				int a,b;
-				a=(int)((x+x1)*0.9);
-				b=(int)((y+y1)*0.9);
-
-				g.fillOval(a, b, 9, 9);
-				//repaint();
-
-
+				double x1 = n.getLocation().x();
+				double y1 = n.getLocation().y();
+				StdDraw.line(x, y, x1, y1);
+				StdDraw.setPenColor(Color.BLACK);
+				StdDraw.text((x+x1)/2,(y+y1)/2,""+ e.getWeight());
+				StdDraw.setPenColor(Color.YELLOW);
+				double a=0,b=0;
+				if(x<x1 && y<y1) {
+					a=x+(Math.abs(x-x1)*0.9);
+					b=y+(Math.abs(y-y1)*0.9);
+				}
+				if(x>x1 && y>y1 ) {
+					a=x-(Math.abs(x-x1)*0.9);
+					b=y-(Math.abs(y-y1)*0.9);
+				}
+				if(x>x1 && y<y1 ) {
+					a=x-(Math.abs(x-x1)*0.9);
+					b=y+(Math.abs(y-y1)*0.9);
+				}
+				if(x<x1 && y>y1) {
+					a=x+(Math.abs(x-x1)*0.9);
+					b=y-(Math.abs(y-y1)*0.9);
+				}
+				StdDraw.setPenRadius(0.015);
+				StdDraw.point(a,b);
 			}
 		}
 	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
 		String str = e.getActionCommand();
 
-		if(str.equals("shortest path"))
+		if(str.equals("shortest Path"))
 		{
-			
-			//repaint();
+           // shortest_Path();
+			paint();
 		}
 		if(str.equals("tsp"))
 		{
-		  	
-			//repaint();
+           
 		}
-		
 
+
+	}
+
+	public void shortest_Path() {
+		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("mouseClicked");
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
+		if(StdDraw.isMousePressed()) {
+		double x = StdDraw.mouseX();
+		double y = StdDraw.mouseY();
 		DNode d = new DNode();
 		Point3D p = new Point3D(x,y);
 		d.setLocation(p);
 		gr.addNode(d);
-		repaint();
-		System.out.println("mousePressed");
-
+		StdDraw.setPenColor(Color.BLUE);
+		StdDraw.setPenRadius(0.015);
+		int k = d.getKey();
+		StdDraw.point(x, y);
+		StdDraw.text(x,y+4,""+k);
+	}
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		
 	}
 
 	@Override
@@ -152,41 +172,40 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 
 
 	public static void main(String [] args) {
-		
-		Point3D p= new Point3D(100, 100);
-		Point3D p1= new Point3D(50, 300);
-//		Point3D p2= new Point3D(400, 150);
-//		Point3D p3= new Point3D(150,400);
+
+		Point3D p= new Point3D(10, 10);
+		Point3D p1= new Point3D(50, 50);
+		Point3D p2= new Point3D(60, 40);
+		Point3D p3= new Point3D(5,90);
 
 		DNode n = new DNode();
 		DNode n1 = new DNode();
-//		DNode n2 = new DNode();
-//		DNode n3 = new DNode();
-       
+		DNode n2 = new DNode();
+		DNode n3 = new DNode();
+
 		n.setLocation(p);
-        n1.setLocation(p1);
-//        n2.setLocation(p2);
-//        n3.setLocation(p3);
+		n1.setLocation(p1);
+		n2.setLocation(p2);
+		n3.setLocation(p3);
 
 		DGraph DGrahp1 = new DGraph();
 
 		DGrahp1.addNode(n);
 		DGrahp1.addNode(n1);
-//		DGrahp1.addNode(n2);
-//		DGrahp1.addNode(n3);
+		DGrahp1.addNode(n2);
+		DGrahp1.addNode(n3);
 
-		DGrahp1.connect(0, 1, 1128);
-//		DGrahp1.connect(0, 2, 22);
-//		DGrahp1.connect(1, 0, 22);	
-//		DGrahp1.connect(1, 2, 22);
-//		DGrahp1.connect(2, 0, 23);
-//		DGrahp1.connect(2, 1, 23);
-//		DGrahp1.connect(3, 0, 24);
-//		DGrahp1.connect(0, 3, 21);
-//        DGrahp1.connect(2, 1, 2);
-//		
-        graph_gui g = new graph_gui(DGrahp1);
-		//paint();
+		DGrahp1.connect(0, 1, 11);
+		DGrahp1.connect(0, 2, 22);
+		DGrahp1.connect(1, 0, 22);	
+		DGrahp1.connect(1, 2, 22);
+		DGrahp1.connect(2, 0, 23);
+		DGrahp1.connect(2, 1, 23);
+		DGrahp1.connect(3, 0, 24);
+		DGrahp1.connect(0, 3, 21);
+		DGrahp1.connect(2, 1, 2);
+
+		graph_gui g = new graph_gui(DGrahp1);
 		g.setVisible(true);
 
 	}
