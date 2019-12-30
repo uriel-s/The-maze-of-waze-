@@ -1,5 +1,7 @@
-*.class
+
+
 /dataStructure/
+
 /gui/
-/utils/
+/dataStructure/
 /algorithms/

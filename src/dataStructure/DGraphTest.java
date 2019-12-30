@@ -1,69 +1,132 @@
 package dataStructure;
 
+import static org.junit.Assume.assumeFalse;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Collection;
+import java.util.HashMap;
+
 import org.junit.jupiter.api.Test;
+import dataStructure.DGraph;
 
 class DGraphTest {
+	DGraph DGrahp1 = new DGraph();
+	public DGraphTest() {
+		DNode n = new DNode();
+		DNode n1 = new DNode();
+		DNode n2 = new DNode();
+		DNode n3 = new DNode();
+		DGrahp1.addNode(n);
+		DGrahp1.addNode(n1);
+		DGrahp1.addNode(n2);
+		DGrahp1.addNode(n3);
 
-	@Test
-	void testDGraph() {
-		fail("Not yet implemented");
 	}
 
 	@Test
 	void testGetNode() {
-		fail("Not yet implemented");
+		DNode actual= new DNode();
+		DGraph a= new  DGraph();
+		a.addNode(actual);
+		DNode expected= new DNode();
+		expected=(DNode) a.getNode(actual.getKey());
+
+		assertEquals(expected, actual);
+
 	}
 
-	@Test
-	void testGetEdge() {
-		fail("Not yet implemented");
-	}
+	//		@Test
+	//		void testGetEdge() {
+	//Dedge expected = new Dedge(0);
+	//
+	//		}
 
 	@Test
 	void testAddNode() {
-		fail("Not yet implemented");
-	}
+		DGraphTest d=new DGraphTest();
+		DNode n4 =new DNode();
+		int accual =d.DGrahp1.nodeSize();
 
+		d.DGrahp1.addNode(n4);
+		int expected= d.DGrahp1.nodeSize();
+
+		assertEquals(expected,accual+1 );
+	}
 	@Test
 	void testConnect() {
-		fail("Not yet implemented");
+		DGraph d = new DGraph();
+		DNode n = new DNode();
+		DNode n1 = new DNode();
+		n.SetKey(0);
+		n1.SetKey(1);
+		d.addNode(n);
+		d.addNode(n1);
+		d.connect(0, 1, 2);
+		Dedge expected= new Dedge();		
+		expected= (Dedge) d.getEdge(0, 1);
+		assumeFalse( (expected==null));
+
 	}
 
-	@Test
-	void testGetV() {
-		fail("Not yet implemented");
-	}
 
-	@Test
-	void testGetE() {
-		fail("Not yet implemented");
-	}
+
 
 	@Test
 	void testRemoveNode() {
-		fail("Not yet implemented");
+		DGraphTest d=new DGraphTest();
+		DNode sas= new DNode();
+		sas.SetKey(0);
+		d.DGrahp1.addNode(sas);
+
+		d.DGrahp1.removeNode(0);
+
+		assertEquals(d.DGrahp1.nodeSize(),4);
 	}
 
 	@Test
 	void testRemoveEdge() {
-		fail("Not yet implemented");
-	}
+		DGraph a= new DGraph();
 
-	@Test
-	void testNodeSize() {
-		fail("Not yet implemented");
-	}
+		DNode n0= new DNode();
+		DNode n1= new DNode();
+		a.addNode(n1);
+		a.addNode(n0);
 
+		a.connect(n0.getKey(), n1.getKey(), 0);
+		int	sz=a.edgeSize();
+		edge_data x= a.removeEdge(n0.getKey(), n1.getKey());
+		sz=a.edgeSize();
+		assertEquals(sz, 0);
+
+
+	}
 	@Test
+
+	void testNodesize() {
+		DGraphTest d=new DGraphTest();
+		int x= d.DGrahp1.nodeSize();
+		assertEquals(d.DGrahp1.nodeSize(),4);
+
+	}	
+	@Test
+
 	void testEdgeSize() {
-		fail("Not yet implemented");
-	}
+		DGraphTest d=new DGraphTest();
+		assertEquals(d.DGrahp1.nodeSize(),4);
 
+	}
 	@Test
 	void testGetMC() {
-		fail("Not yet implemented");
+
+		DGraph a= new DGraph();
+
+		DNode n0= new DNode();
+		DNode n1= new DNode();
+		a.addNode(n1);
+		a.addNode(n0);
+		assertEquals(a.getMC(),2);
+
 	}
+
 
 }

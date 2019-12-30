@@ -14,6 +14,9 @@ public class Dedge implements edge_data {
 		this.Weight=w;
 
 	}
+	public Dedge() {
+
+	}
 
 	public void setSrc(int src) {
 		this.Src = src;
@@ -76,6 +79,6 @@ public class Dedge implements edge_data {
 		return ans;
 	}
 
-	
+
 
 }
