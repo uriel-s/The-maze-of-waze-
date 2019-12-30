@@ -2,6 +2,7 @@ package algorithms;
 
 import java.util.*;
 
+
 import dataStructure.DGraph;
 import dataStructure.DNode;
 import dataStructure.Dedge;
@@ -18,9 +19,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+
 /**
  * This empty class represents the set of graph-theory algorithms
  * which should be implemented as part of Ex2 - Do edit this class.
@@ -28,10 +27,25 @@ import java.util.Iterator;
  *
  */
 public class Graph_Algo implements graph_algorithms{
+
+	public DGraph getG() {
+		return g;
+	}
+	public void setG(DGraph g) {
+		this.g = g;
+	}
+	public void setG(graph graph) {
+		this.g = (DGraph) graph;
+	}
+
+
 	DGraph g;
 	public List<node_data> list = new ArrayList <node_data> ();	
 
-
+	public Graph_Algo()
+	{
+		this.g = new DGraph();
+	}
 	public void init(graph g) {
 		this.g=(DGraph) g;		
 	}
@@ -190,7 +204,8 @@ public class Graph_Algo implements graph_algorithms{
 		Src.setWeight(0);
 
 		Sourcdijkstra(Src);
-		if(Dst.getWeight()==Double.MAX_VALUE)  			throw new  RuntimeException("Nodes arent connected");
+		//if(Dst.getWeight()==Double.MAX_VALUE) 
+		//  			throw new  RuntimeException("Nodes arent connected");
 
 		return Dst.getWeight();
 
@@ -200,7 +215,7 @@ public class Graph_Algo implements graph_algorithms{
 	public void Sourcdijkstra (DNode src) 
 	{ //need to test the first if
 		if (src.isVisited())return;
-	//	System.out.println("this is "+src.getKey()+" Node");
+		//	System.out.println("this is "+src.getKey()+" Node");
 
 		Iterator<edge_data> I= g.getE(src.getKey()).iterator();
 		Dedge e= new Dedge(0);
@@ -238,7 +253,18 @@ public class Graph_Algo implements graph_algorithms{
 		DNode dest = (DNode) g.getNode( e.getDest() );
 		DNode src = (DNode) g.getNode( e.getSrc() );
 		double NewWeight= e.getWeight()+src.getWeight();
-		if(NewWeight<dest.getWeight()) dest.setWeight(NewWeight);	
+		if(NewWeight<dest.getWeight()) {
+			dest.setWeight(NewWeight);	
+			SetShortList(src,dest);
+		}
+	}
+
+
+	public void SetShortList(DNode src,DNode dest) {	
+		List<node_data> ans = new ArrayList <node_data> ();	
+		ans.addAll(src.GetShortestPath());
+		ans.add(dest);
+		dest.setShortestPath(ans);
 	}
 
 
@@ -273,21 +299,42 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
-		// TODO Auto-generated method stub
-		return null;
+		double x =shortestPathDist(src, dest);
+		DNode n=(DNode) g.getNode(dest);
+		return n.GetShortestPath();		
+
 	}
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
-		// TODO Auto-generated method stub
-		return null;
+		if(!this.isConnected()) return null;
+		//all0(g);		
+		List<node_data> ans = new ArrayList <node_data> ();	
+		List<node_data> tmp = new ArrayList <node_data> ();	
+
+		Iterator<Integer> I= targets.iterator();
+		int	src= I.next();
+		int dest;
+		if(targets.size()<2) return  (List<node_data>) g.getNode(src);
+
+		while(I.hasNext())
+		{
+			dest=I.next();
+			tmp=shortestPath(src, dest);
+			ans.addAll(tmp);
+			src=dest;
+		}
+		return ans;
 	}
 
 	@Override
 	public graph copy() {
-		// TODO Auto-generated method stub
-		return null;
+			
+		return g.DGraphCopy(g); 
+
 	}
+
+
 	public Iterator<node_data> iterator() {
 		return this.list.iterator();
 	}
