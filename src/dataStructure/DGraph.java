@@ -27,7 +27,7 @@ public class DGraph implements graph ,Serializable{
 		ans.MC=g.MC;
 		ans.IDcounter=g.IDcounter;
 		ans.Vertex=DeepCopyVertex(g.getVErtex());
-return ans;
+		return ans;
 	}	
 
 	public HashMap<Integer, node_data> DeepCopyVertex(HashMap<Integer, node_data> vertex)
@@ -44,11 +44,15 @@ return ans;
 		}
 		return ans;
 	}
-	
-	
+
+
 	@Override
 	public node_data getNode(int key) {
 		if (this.Vertex.isEmpty())return null;
+		if(!this.Vertex.containsKey(key)) 
+		{			
+		throw new  RuntimeException("src not exist");
+		}
 		return this.Vertex.get(key);
 
 	}
@@ -61,8 +65,10 @@ return ans;
 		if(!Vertex.containsKey(dest))
 			throw new  RuntimeException("destetion not exist");
 		DNode n =  (DNode) this.Vertex.get(src);
-		if(!n.getEdges().containsKey(dest)) return null;
-
+		if(!n.getEdges().containsKey(dest)) {
+			System.out.println("edge is not exist");
+			return null;
+		}
 		Dedge e=n.getEdge(dest); 
 		return e;
 	}
@@ -80,8 +86,11 @@ return ans;
 
 	@Override
 	public void connect(int src, int dest, double w) {
-		if(!Vertex.containsKey(src))
-			throw new  RuntimeException("src not exist");
+
+		if(!Vertex.containsKey(src)) {
+			//System.out.println("sas");
+
+			throw new  RuntimeException("src not exist");}
 		if(!Vertex.containsKey(dest))
 			throw new  RuntimeException("dest not exist");
 
@@ -113,11 +122,11 @@ return ans;
 
 		Iterator<node_data> itrerator= this.getV().iterator();
 		DNode n= new DNode();
-
+		n=(DNode) this.getNode(key);
+		node_data x= n.copyN(n);
 		while(itrerator.hasNext())
 		{
 			n =(DNode) itrerator.next();
-			System.out.println(n.getKey());
 
 			if (n.getEdges().containsKey(key))
 			{
@@ -131,19 +140,22 @@ return ans;
 		IDcounter--;
 		MC++;
 		//YA
-		return this.Vertex.get(key);
+		return x;
 	}
 	@Override
 
 	//not finish 
 	public edge_data removeEdge(int src, int dest) {
-
+		if(!Vertex.containsKey(src)) {
+			throw new  RuntimeException("src not exist");}
+		if(!Vertex.containsKey(dest)) 
+			throw new  RuntimeException("dest not exist");
 		DNode n=(DNode) this.Vertex.get(src);
-
+		Dedge x= n.getEdge(dest).copyE();
 		n.RemoveEdge(dest);
 		Ecounter--;
 		MC++;
-		return n.getEdge(dest);
+		return x;
 	}
 
 	@Override
@@ -158,10 +170,9 @@ return ans;
 
 	@Override
 	public int getMC() {
-		// TODO Auto-generated method stub
-
 		return this.MC;
 	}
+	
 
 
 }
