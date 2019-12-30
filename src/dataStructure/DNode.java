@@ -104,8 +104,9 @@ public class DNode implements node_data {
 	}
 
 	public String toString()
-	{ String s = Integer.toString(this.key);
-	return s;
+	{
+		String s = Integer.toString(this.key);
+	  return s;
 	}
 
 	public HashMap<Integer, edge_data> getEdges() {
