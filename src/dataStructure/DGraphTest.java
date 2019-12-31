@@ -62,7 +62,7 @@ class DGraphTest {
 		d.addNode(n);
 		d.addNode(n1);
 		d.connect(0, 1, 2);
-		Dedge expected= new Dedge();		
+		Dedge expected = new Dedge();		
 		expected= (Dedge) d.getEdge(0, 1);
 		assumeFalse( (expected==null));
 
