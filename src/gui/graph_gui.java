@@ -73,8 +73,7 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 		MenuItem item1 = new MenuItem("shortest Path way");
 		item1.addActionListener(this);
 
-		MenuItem item2 = new MenuItem("shortest Path distance");
-		item2.addActionListener(this);
+		
 
 		MenuItem item3 = new MenuItem("tsp");
 		item3.addActionListener(this);
@@ -89,7 +88,6 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 		item6.addActionListener(this);
 
 		menu1.add(item1);
-		menu1.add(item2);
 		menu1.add(item3);
 		menu1.add(item4);
 
@@ -181,10 +179,7 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 		{
 			shortest_Path();
 		}
-		if(str.equals("shortest Path distance"))
-		{
-			shortestPathDistance();
-		}
+		
 		if(str.equals("tsp")) {
 			tsp();
 		}
@@ -200,9 +195,7 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 
 	}
 
-	private void shortestPathDistance() {
-
-	}
+	
 
 	private void tsp() {
 		try {
@@ -275,7 +268,21 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 			t.save(j.getSelectedFile().getAbsolutePath());
 		}
 	}
-
+	
+	private void drawfromfile() {
+		JFileChooser jf = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		int returnV = jf.showOpenDialog(null);
+		Graph_Algo gra = new Graph_Algo();
+		if (returnV == JFileChooser.APPROVE_OPTION) {
+			File selected = jf.getSelectedFile();
+			gra.init(selected.getAbsolutePath());
+		}
+		this.gr = (DGraph)gra.getG();
+		paint();
+		StdDraw.line(5, 5, 30, 30);
+	}
+	
+	
 	public void shortest_Path() {
 		try {
 			JFrame in = new JFrame();
@@ -289,7 +296,10 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 			newGSSP.init(gr);
 
 			List<node_data> dis = newGSSP.shortestPath(srcSSP, destSSP);
+			double distance = newGSSP.shortestPathDist(srcSSP, destSSP);
 			paint();
+			StdDraw.setPenColor();
+			StdDraw.text(0, -96, "the shortest distance between "+srcSSP+" --> "+destSSP+" is :"+distance);
 			for (int i=0; i<dis.size()-1; i++) {
 				double x1 = dis.get(i).getLocation().x();
 				double y1 = dis.get(i).getLocation().y();
@@ -307,20 +317,6 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 		}
 
 	}
-
-
-	private void drawfromfile() {
-		JFileChooser jf = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-		int returnV = jf.showOpenDialog(null);
-		Graph_Algo gra = new Graph_Algo();
-		if (returnV == JFileChooser.APPROVE_OPTION) {
-			File selected = jf.getSelectedFile();
-			gra.init(selected.getName());
-		}
-		this.gr = (DGraph) gra.copy();
-	}
-
-
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

@@ -27,7 +27,11 @@ import java.io.PrintWriter;
  *
  */
 public class Graph_Algo implements graph_algorithms{
+	DGraph g;
+	public List<node_data> list = new ArrayList <node_data> ();	
 
+	
+	
 	public DGraph getG() {
 		return g;
 	}
@@ -39,9 +43,7 @@ public class Graph_Algo implements graph_algorithms{
 	}
 
 
-	DGraph g;
-	public List<node_data> list = new ArrayList <node_data> ();	
-
+	
 	public Graph_Algo()
 	{
 		this.g = new DGraph();
@@ -52,17 +54,17 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public void init(String file_name) {
-		DGraph g =null;          
+		//DGraph g =null;          
 
 		try
 		{    
-			FileInputStream file = new FileInputStream("file_name"); 
+			FileInputStream file = new FileInputStream(file_name); 
 			ObjectInputStream in = new ObjectInputStream(file); 
 
-			g = (DGraph)in.readObject(); 
-
-			in.close(); 
-			file.close(); 
+			DGraph g = (DGraph)in.readObject(); 
+            init(g);
+			//in.close(); 
+			//file.close(); 
 
 			System.out.println("Object has been deserialized"); 
 			System.out.println(g);
@@ -85,13 +87,13 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public void save(String file_name) {
-		DGraph g =null;          
+		//DGraph g =this.g;          
 		try
 		{    
 			FileOutputStream file = new FileOutputStream(file_name); 
 			ObjectOutputStream out = new ObjectOutputStream(file); 
 
-			out.writeObject(g); 
+			out.writeObject(this.g); 
 
 			out.close(); 
 			file.close(); 
@@ -100,7 +102,7 @@ public class Graph_Algo implements graph_algorithms{
 		}   
 		catch(IOException ex) 
 		{ 
-			System.out.println("IOException is caught"); 
+			System.out.println("IOException is caught++"); 
 		} 
 
 
