@@ -27,10 +27,19 @@ import java.io.PrintWriter;
  *
  */
 public class Graph_Algo implements graph_algorithms{
-	DGraph g;
+	public DGraph g;
 	public List<node_data> list = new ArrayList <node_data> ();	
-
 	
+	
+	
+	public Graph_Algo()
+	{
+		this.g = new DGraph();
+	}
+	public Graph_Algo(graph g)
+	{
+		this.g = (DGraph) g;
+	}
 	
 	public DGraph getG() {
 		return g;
@@ -44,10 +53,7 @@ public class Graph_Algo implements graph_algorithms{
 
 
 	
-	public Graph_Algo()
-	{
-		this.g = new DGraph();
-	}
+	
 	public void init(graph g) {
 		this.g=(DGraph) g;		
 	}

@@ -71,6 +71,9 @@ public class tester {
 		DGrahp1.removeEdge(0, 1);
 		System.out.println("g edges sise"+g.getG().edgeSize());
 		System.out.println("g2 edges sise"+g2.getG().edgeSize());
+		String aaa = "guiii";
+		g.save(aaa);
+
 
 	}
 
