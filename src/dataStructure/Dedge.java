@@ -13,9 +13,9 @@ public class Dedge implements edge_data {
 	public Dedge(double w) {
 		this.Weight=w;
 
-	}
+	}	
 	public Dedge() {
-this.key=(Integer) null;
+		this.key=(Integer) null;
 	}
 
 	public void setSrc(int src) {
