@@ -150,6 +150,11 @@ public class DNode implements node_data {
 		return ans;	
 	}
 
+	
+	
+	
+	
+	
 	private HashMap<Integer, edge_data> EdgesDeepCopy() {
 		Iterator<edge_data> I=    this.getED().iterator();
 

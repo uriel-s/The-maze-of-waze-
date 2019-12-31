@@ -15,7 +15,7 @@ public class Dedge implements edge_data {
 
 	}
 	public Dedge() {
-
+this.key=(Integer) null;
 	}
 
 	public void setSrc(int src) {

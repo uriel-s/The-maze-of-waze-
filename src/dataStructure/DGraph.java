@@ -118,7 +118,8 @@ public class DGraph implements graph ,Serializable{
 	@Override
 	public node_data removeNode(int key)
 	{
-		if(!Vertex.containsKey(key)) throw new  RuntimeException("node is not exist");
+		if(!Vertex.containsKey(key))
+			throw new  RuntimeException("node is not exist");
 
 		Iterator<node_data> itrerator= this.getV().iterator();
 		DNode n= new DNode();
@@ -139,12 +140,11 @@ public class DGraph implements graph ,Serializable{
 		this.Vertex.remove(key); 
 		IDcounter--;
 		MC++;
-		//YA
+		
 		return x;
 	}
 	@Override
 
-	//not finish 
 	public edge_data removeEdge(int src, int dest) {
 		if(!Vertex.containsKey(src)) {
 			throw new  RuntimeException("src not exist");}
