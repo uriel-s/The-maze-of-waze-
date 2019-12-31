@@ -103,7 +103,7 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 	}
 
 	public void paint() {
-		StdDraw.setCanvasSize(700, 500);
+		StdDraw.setCanvasSize(1000, 500);
 		StdDraw.setXscale(-100,100);
 		StdDraw.setYscale(-100,100);
 		Collection<node_data> search = gr.getV();
@@ -176,7 +176,6 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		String str = e.getActionCommand();
-		// Graph_Algo graph = new Graph_Algo();
 
 		if(str.equals("shortest Path way"))
 		{
@@ -216,9 +215,10 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 				int s = Integer.parseInt(travel);
 				targets.add(s);
 			}
+			targets.remove(targets.size()-1);
 			Graph_Algo newTsp = new Graph_Algo();
 			newTsp.init(gr);
-
+			paint();
 			List<node_data> dis = newTsp.TSP(targets);
 			paint();
 			for (int i=0; i<dis.size()-1; i++) {
@@ -240,144 +240,153 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 	}
 
 
-private void isConnected() {
-	JFrame f = new JFrame();
-	this.setSize(150, 50);
-	JPanel p = new JPanel();
-
-	Graph_Algo graphIsC = new Graph_Algo();
-	graphIsC.init(gr);
-	if(graphIsC.isConnected()) {
-		JLabel l = new JLabel("the graph is connected");
-
-		p.add(l);
-		f.add(p);
-		f.setVisible(true);
-	} else {
-		JLabel K = new JLabel("the graph is NOT connected");
-
-		p.add(K);
-		f.add(p);
-		f.setVisible(true);
-	}
-}
-
-private void saveToFile() {
-	// TODO Auto-generated method stub
-
-}
-
-public void shortest_Path() {
-	try {
-		JFrame in = new JFrame();
-		String Source = JOptionPane.showInputDialog(in,"Enter Source-Node:");
-		String Dest = JOptionPane.showInputDialog(in,"Enter Destination-Node:");
-
-		int srcSSP = Integer.parseInt(Source);
-		int destSSP = Integer.parseInt(Dest);
-
-		Graph_Algo newGSSP = new Graph_Algo();
-		newGSSP.init(gr);
-
-		List<node_data> dis = newGSSP.shortestPath(srcSSP, destSSP);
+	private void isConnected() {
 		paint();
-		for (int i=0; i<dis.size()-1; i++) {
-			double x1 = dis.get(i).getLocation().x();
-			double y1 = dis.get(i).getLocation().y();
-			double x2 = dis.get(i+1).getLocation().x();
-			double y2 = dis.get(i+1).getLocation().y();
+		StdDraw.setPenColor();
+		StdDraw.setFont();
+		
 
-			StdDraw.setPenColor(Color.GREEN);
-			StdDraw.setPenRadius(0.004);	
-			StdDraw.line(x1, y1, x2, y2);
+		Graph_Algo graphIsC = new Graph_Algo();
+		graphIsC.init(gr);
+		if(graphIsC.isConnected()) {
+			StdDraw.text(0,-96,"the graph is connected" );
+			
+		} else {
+		
+			StdDraw.text(0,-96,"the graph is NOT connected");
+
+			
+		}
+	}
+
+	private void saveToFile() {
+		Graph_Algo t=new Graph_Algo();
+		JFileChooser j;
+		FileNameExtensionFilter filter;
+
+		j = new JFileChooser(FileSystemView.getFileSystemView());
+		j.setDialogTitle("Save graph to text file.."); 
+		filter = new FileNameExtensionFilter(" .txt","txt");
+		j.setFileFilter(filter);
+
+		int userSelection = j.showSaveDialog(null);
+		if (userSelection == JFileChooser.APPROVE_OPTION) {
+			System.out.println("Save as file: " + j.getSelectedFile().getAbsolutePath());
+			t.save(j.getSelectedFile().getAbsolutePath());
+		}
+	}
+
+	public void shortest_Path() {
+		try {
+			JFrame in = new JFrame();
+			String Source = JOptionPane.showInputDialog(in,"Enter Source-Node:");
+			String Dest = JOptionPane.showInputDialog(in,"Enter Destination-Node:");
+
+			int srcSSP = Integer.parseInt(Source);
+			int destSSP = Integer.parseInt(Dest);
+
+			Graph_Algo newGSSP = new Graph_Algo();
+			newGSSP.init(gr);
+
+			List<node_data> dis = newGSSP.shortestPath(srcSSP, destSSP);
+			paint();
+			for (int i=0; i<dis.size()-1; i++) {
+				double x1 = dis.get(i).getLocation().x();
+				double y1 = dis.get(i).getLocation().y();
+				double x2 = dis.get(i+1).getLocation().x();
+				double y2 = dis.get(i+1).getLocation().y();
+
+				StdDraw.setPenColor(Color.GREEN);
+				StdDraw.setPenRadius(0.004);	
+				StdDraw.line(x1, y1, x2, y2);
+			}
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 
 	}
-	catch (Exception e) {
-		e.printStackTrace();
+
+
+	private void drawfromfile() {
+		JFileChooser jf = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		int returnV = jf.showOpenDialog(null);
+		Graph_Algo gra = new Graph_Algo();
+		if (returnV == JFileChooser.APPROVE_OPTION) {
+			File selected = jf.getSelectedFile();
+			gra.init(selected.getName());
+		}
+		this.gr = (DGraph) gra.copy();
 	}
 
-}
 
 
-private void drawfromfile() {
-	JFileChooser jf = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-	int returnV = jf.showOpenDialog(null);
-	Graph_Algo gra = new Graph_Algo();
-	if (returnV == JFileChooser.APPROVE_OPTION) {
-		File selected = jf.getSelectedFile();
-		gra.init(selected.getAbsolutePath());
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		System.out.println("mouseClicked");
 	}
-	this.gr = (DGraph) gra.copy();
-}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		System.out.println("mousePressed");
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		System.out.println("mouseReleased");
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		System.out.println("mouseEntered");
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		System.out.println("mouseExited");
+	}
 
 
+	public static void main(String [] args) {
 
-@Override
-public void mouseClicked(MouseEvent e) {
-	System.out.println("mouseClicked");
-}
+		Point3D p= new Point3D(10, 10);
+		Point3D p1= new Point3D(50, 50);
+		Point3D p2= new Point3D(60, 40);
+		Point3D p3= new Point3D(5,90);
 
-@Override
-public void mousePressed(MouseEvent e) {
-	System.out.println("mousePressed");
+		DNode n = new DNode();
+		DNode n1 = new DNode();
+		DNode n2 = new DNode();
+		DNode n3 = new DNode();
 
-}
+		n.setLocation(p);
+		n1.setLocation(p1);
+		n2.setLocation(p2);
+		n3.setLocation(p3);
 
-@Override
-public void mouseReleased(MouseEvent e) {
-	System.out.println("mouseReleased");
+		DGraph DGrahp1 = new DGraph();
 
-}
+		DGrahp1.addNode(n);
+		DGrahp1.addNode(n1);
+		DGrahp1.addNode(n2);
+		DGrahp1.addNode(n3);
 
-@Override
-public void mouseEntered(MouseEvent e) {
-	System.out.println("mouseEntered");
+		DGrahp1.connect(0, 1, 11);
+		DGrahp1.connect(0, 2, 22);
+		DGrahp1.connect(1, 0, 22);	
+		DGrahp1.connect(1, 2, 22);
+		DGrahp1.connect(2, 0, 23);
+		DGrahp1.connect(2, 1, 23);
+		DGrahp1.connect(3, 0, 24);
+		DGrahp1.connect(0, 3, 21);
+		DGrahp1.connect(2, 1, 2);
 
-}
+		graph_gui g = new graph_gui(DGrahp1);
+		g.setVisible(true);
 
-@Override
-public void mouseExited(MouseEvent e) {
-	System.out.println("mouseExited");
-}
-
-
-public static void main(String [] args) {
-
-	Point3D p= new Point3D(10, 10);
-	Point3D p1= new Point3D(50, 50);
-	Point3D p2= new Point3D(60, 40);
-	Point3D p3= new Point3D(5,90);
-
-	DNode n = new DNode();
-	DNode n1 = new DNode();
-	DNode n2 = new DNode();
-	DNode n3 = new DNode();
-
-	n.setLocation(p);
-	n1.setLocation(p1);
-	n2.setLocation(p2);
-	n3.setLocation(p3);
-
-	DGraph DGrahp1 = new DGraph();
-
-	DGrahp1.addNode(n);
-	DGrahp1.addNode(n1);
-	DGrahp1.addNode(n2);
-	DGrahp1.addNode(n3);
-
-	DGrahp1.connect(0, 1, 11);
-	DGrahp1.connect(0, 2, 22);
-	DGrahp1.connect(1, 0, 22);	
-	DGrahp1.connect(1, 2, 22);
-	DGrahp1.connect(2, 0, 23);
-	DGrahp1.connect(2, 1, 23);
-	DGrahp1.connect(3, 0, 24);
-	DGrahp1.connect(0, 3, 21);
-	DGrahp1.connect(2, 1, 2);
-
-	graph_gui g = new graph_gui(DGrahp1);
-	g.setVisible(true);
-
-}
+	}
 }
