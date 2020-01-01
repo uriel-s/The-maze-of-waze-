@@ -315,7 +315,7 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
-		if(!this.isConnected()) return null;
+		//if(!this.isConnected()) return null;
 		//all0(g);		
 		List<node_data> ans = new ArrayList <node_data> ();	
 		List<node_data> tmp = new ArrayList <node_data> ();	

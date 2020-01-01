@@ -41,6 +41,7 @@ class Ex2Test {
 	void testConnectivity() {
 		_alg = new Graph_Algo(_graph);
 		boolean con = _alg.isConnected();
+		System.out.println("aaa");
 		if(!con) {
 			fail("shoulbe be connected");
 		}

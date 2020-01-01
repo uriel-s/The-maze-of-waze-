@@ -34,6 +34,20 @@ public class DNode implements node_data {
 
 	}
 
+	public  DNode(Point3D p) {
+		this.key=DGraph.I;
+		DGraph.I++;
+		this.Edges = new HashMap<>();
+		this.Visited=false;
+		this.Weight=0;
+		this.Location=p;
+		ShortestPath = new ArrayList <node_data> ();	
+		ShortestPath.add(this);
+		List<edge_data> list = new ArrayList <edge_data> ();
+	}
+	
+	
+	
 	public boolean isVisited() {
 		return this.Visited;
 	}
