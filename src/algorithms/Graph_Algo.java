@@ -48,6 +48,10 @@ public class Graph_Algo implements graph_algorithms{
 	{
 		this.g = new DGraph();
 	}
+	public Graph_Algo(graph g) {
+		this.g=(DGraph) g;
+
+	}
 	public void init(graph g) {
 		this.g=(DGraph) g;
 	}
