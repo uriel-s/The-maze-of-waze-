@@ -69,7 +69,9 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 		menuBar.add(menu2);
 
 		this.setMenuBar(menuBar);
-
+		MenuItem item0 = new MenuItem("draw graph");
+		item0.addActionListener(this);
+		
 		MenuItem item1 = new MenuItem("shortest Path way");
 		item1.addActionListener(this);
 
@@ -86,11 +88,12 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 
 		MenuItem item6 = new MenuItem("draw from file");
 		item6.addActionListener(this);
-
+		
+		
+		menu1.add(item0);
 		menu1.add(item1);
 		menu1.add(item3);
 		menu1.add(item4);
-
 		menu2.add(item5);
 		menu2.add(item6);
 
@@ -101,6 +104,7 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 	}
 
 	public void paint() {
+
 		StdDraw.setCanvasSize(1000, 500);
 		StdDraw.setXscale(-100,100);
 		StdDraw.setYscale(-100,100);
@@ -174,12 +178,14 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		String str = e.getActionCommand();
-
+		if(str.equals("draw graph"))
+		{
+			paint();
+		}
 		if(str.equals("shortest Path way"))
 		{
 			shortest_Path();
 		}
-		
 		if(str.equals("tsp")) {
 			tsp();
 		}
@@ -213,6 +219,9 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 			newTsp.init(gr);
 			paint();
 			List<node_data> dis = newTsp.TSP(targets);
+			for(node_data x : dis) {
+				System.out.print(x.getKey()+"\t");
+			}
 			paint();
 			for (int i=0; i<dis.size()-1; i++) {
 				double x1 = dis.get(i).getLocation().x();
@@ -242,11 +251,11 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 		Graph_Algo graphIsC = new Graph_Algo();
 		graphIsC.init(gr);
 		if(graphIsC.isConnected()) {
-			StdDraw.text(0,-96,"the graph is connected" );
+			StdDraw.text(0,-95,"the graph is connected" );
 			
 		} else {
 		
-			StdDraw.text(0,-96,"the graph is NOT connected");
+			StdDraw.text(0,-95,"the graph is NOT connected");
 
 			
 		}
@@ -254,32 +263,34 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 
 	private void saveToFile() {
 		Graph_Algo t=new Graph_Algo();
+		t.setG(this.gr);
 		JFileChooser j;
 		FileNameExtensionFilter filter;
 
 		j = new JFileChooser(FileSystemView.getFileSystemView());
-		j.setDialogTitle("Save graph to text file.."); 
+		j.setDialogTitle("Save graph to file"); 
 		filter = new FileNameExtensionFilter(" .txt","txt");
 		j.setFileFilter(filter);
 
 		int userSelection = j.showSaveDialog(null);
 		if (userSelection == JFileChooser.APPROVE_OPTION) {
 			System.out.println("Save as file: " + j.getSelectedFile().getAbsolutePath());
-			t.save(j.getSelectedFile().getAbsolutePath());
+			t.save(j.getSelectedFile().getName());
+			
 		}
 	}
 	
 	private void drawfromfile() {
+		this.gr = null;
 		JFileChooser jf = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		int returnV = jf.showOpenDialog(null);
 		Graph_Algo gra = new Graph_Algo();
 		if (returnV == JFileChooser.APPROVE_OPTION) {
 			File selected = jf.getSelectedFile();
-			gra.init(selected.getAbsolutePath());
+			gra.init(selected.getName());
 		}
-		this.gr = (DGraph)gra.getG();
+		this.gr = gra.getG();
 		paint();
-		StdDraw.line(5, 5, 30, 30);
 	}
 	
 	
@@ -299,7 +310,7 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 			double distance = newGSSP.shortestPathDist(srcSSP, destSSP);
 			paint();
 			StdDraw.setPenColor();
-			StdDraw.text(0, -96, "the shortest distance between "+srcSSP+" --> "+destSSP+" is :"+distance);
+			StdDraw.text(0, -95, "the shortest distance between "+srcSSP+" --> "+destSSP+" is :"+distance);
 			for (int i=0; i<dis.size()-1; i++) {
 				double x1 = dis.get(i).getLocation().x();
 				double y1 = dis.get(i).getLocation().y();
@@ -347,42 +358,5 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 	}
 
 
-	public static void main(String [] args) {
-
-		Point3D p= new Point3D(10, 10);
-		Point3D p1= new Point3D(50, 50);
-		Point3D p2= new Point3D(60, 40);
-		Point3D p3= new Point3D(5,90);
-
-		DNode n = new DNode();
-		DNode n1 = new DNode();
-		DNode n2 = new DNode();
-		DNode n3 = new DNode();
-
-		n.setLocation(p);
-		n1.setLocation(p1);
-		n2.setLocation(p2);
-		n3.setLocation(p3);
-
-		DGraph DGrahp1 = new DGraph();
-
-		DGrahp1.addNode(n);
-		DGrahp1.addNode(n1);
-		DGrahp1.addNode(n2);
-		DGrahp1.addNode(n3);
-
-		DGrahp1.connect(0, 1, 11);
-		DGrahp1.connect(0, 2, 22);
-		DGrahp1.connect(1, 0, 22);	
-		DGrahp1.connect(1, 2, 22);
-		DGrahp1.connect(2, 0, 23);
-		DGrahp1.connect(2, 1, 23);
-		DGrahp1.connect(3, 0, 24);
-		DGrahp1.connect(0, 3, 21);
-		DGrahp1.connect(2, 1, 2);
-
-		graph_gui g = new graph_gui(DGrahp1);
-		g.setVisible(true);
-
-	}
+	
 }

@@ -1,8 +1,9 @@
 package dataStructure;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
-public class Dedge implements edge_data {
+public class Dedge implements edge_data, Serializable{
 	private	int key;
 	private int Src;
 	private	int Dest;

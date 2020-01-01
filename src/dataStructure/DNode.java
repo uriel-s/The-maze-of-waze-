@@ -1,5 +1,6 @@
 package dataStructure;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -9,7 +10,7 @@ import java.util.List;
 import dataStructure.DGraph;
 import utils.Point3D;
 
-public class DNode implements node_data {
+public class DNode implements node_data, Serializable{
 	private	int key;
 	private int Tag;
 	private double Weight;

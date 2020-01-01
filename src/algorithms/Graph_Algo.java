@@ -23,24 +23,15 @@ import java.io.PrintWriter;
 /**
  * This empty class represents the set of graph-theory algorithms
  * which should be implemented as part of Ex2 - Do edit this class.
- * @author 
+ * @author
  *
  */
 public class Graph_Algo implements graph_algorithms{
 	public DGraph g;
-	public List<node_data> list = new ArrayList <node_data> ();	
-	
-	
-	
-	public Graph_Algo()
-	{
-		this.g = new DGraph();
-	}
-	public Graph_Algo(graph g)
-	{
-		this.g = (DGraph) g;
-	}
-	
+	public List<node_data> list = new ArrayList <node_data> ();
+
+
+
 	public DGraph getG() {
 		return g;
 	}
@@ -52,66 +43,57 @@ public class Graph_Algo implements graph_algorithms{
 	}
 
 
-	
-	
+
+	public Graph_Algo()
+	{
+		this.g = new DGraph();
+	}
 	public void init(graph g) {
-		this.g=(DGraph) g;		
+		this.g=(DGraph) g;
 	}
 
 	@Override
 	public void init(String file_name) {
-		//DGraph g =null;          
-
+		graph f = null;
 		try
-		{    
-			FileInputStream file = new FileInputStream(file_name); 
-			ObjectInputStream in = new ObjectInputStream(file); 
+		{
+			FileInputStream file = new FileInputStream(file_name);
+			ObjectInputStream in = new ObjectInputStream(file);
 
-			DGraph g = (DGraph)in.readObject(); 
-            init(g);
-			//in.close(); 
-			//file.close(); 
+			f = (graph)in.readObject();
+			this.init(f);
+			in.close();
+			file.close();
 
-			System.out.println("Object has been deserialized"); 
-			System.out.println(g);
-		} 
+			System.out.println("Object has been deserialized");
+		}
+		catch(IOException ex)
+		{
+			System.out.println("IOException is caught");
+		}
 
-		catch(IOException ex) 
-		{ 
-			System.out.println("IOException is caught"); 
-		} 
-
-		catch(ClassNotFoundException ex) 
-		{ 
-			System.out.println("ClassNotFoundException is caught"); 
-		} 
-
+		catch(ClassNotFoundException ex)
+		{
+			System.out.println("ClassNotFoundException is caught");
+		}
 	}
-
-
-
-
 	@Override
 	public void save(String file_name) {
-		//DGraph g =this.g;          
+		graph f = this.copy();
 		try
-		{    
-			FileOutputStream file = new FileOutputStream(file_name); 
-			ObjectOutputStream out = new ObjectOutputStream(file); 
-
-			out.writeObject(this.g); 
-
-			out.close(); 
-			file.close(); 
-
-			System.out.println("Object has been serialized"); 
-		}   
-		catch(IOException ex) 
-		{ 
-			System.out.println("IOException is caught++"); 
-		} 
-
-
+		{
+			FileOutputStream file = new FileOutputStream(file_name);
+			ObjectOutputStream out = new ObjectOutputStream(file);
+			out.writeObject(f);
+			out.close();
+			file.close();
+			System.out.println("Object has been serialized");
+		}
+		catch(IOException ex)
+		{
+			//	ex.printStackTrace();
+			System.out.println("IOException is caught");
+		}
 	}
 
 	@Override
@@ -121,11 +103,11 @@ public class Graph_Algo implements graph_algorithms{
 		DNode root= (DNode) iter.next();
 		//painting all the Nodea that connect with Root.
 		Rootconect(root);
-		while(iter.hasNext()) 
+		while(iter.hasNext())
 			//if one of the Node isnt painting return false;
 		{
 			DNode n= (DNode) iter.next();
-			if (!n.isVisited() ) { 
+			if (!n.isVisited() ) {
 				//System.out.println("Node N is rootconect "+n.getKey());
 				return false;
 			}
@@ -137,11 +119,11 @@ public class Graph_Algo implements graph_algorithms{
 		Iterator<node_data> iter2= g.getV().iterator();
 		//checking if every Nodes connect to root
 		iter2.next();
-		while(iter2.hasNext()) 
+		while(iter2.hasNext())
 		{
 			DNode n= (DNode) iter2.next();
-			if(ConnectWith (n.getKey(),root.getKey())==false) {	
-				//		System.out.println("N isnt conect with root " + n.getKey() ); 
+			if(ConnectWith (n.getKey(),root.getKey())==false) {
+				//		System.out.println("N isnt conect with root " + n.getKey() );
 				return false;
 			}
 		}
@@ -156,7 +138,7 @@ public class Graph_Algo implements graph_algorithms{
 		Iterator<node_data> itrerator= g.getV().iterator();
 		DNode n= new DNode();
 		while( itrerator.hasNext())
-		{		
+		{
 			n= (DNode) itrerator.next();
 			n.setVisited(false);
 		}
@@ -179,7 +161,7 @@ public class Graph_Algo implements graph_algorithms{
 			Rootconect(n) ;
 		}
 	}
-	public boolean ConnectWith(int src,int dest) 
+	public boolean ConnectWith(int src,int dest)
 	{
 		DNode n = (DNode) g.getNode(src);
 		if(n.isVisited())return false;
@@ -188,7 +170,7 @@ public class Graph_Algo implements graph_algorithms{
 		if(n.getEdges().containsKey(dest))return true;
 
 		Iterator<edge_data> iter= g.getE(n.getKey()).iterator();
-		Dedge e= new Dedge(0); 
+		Dedge e= new Dedge(0);
 
 		while(iter.hasNext())
 		{
@@ -203,7 +185,7 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public double shortestPathDist(int src, int dest) {
-		// set all the  Nodes wight= infinit .src Node 0 
+		// set all the  Nodes wight= infinit .src Node 0
 		this.invinityAll();
 		this.all0(g);
 		DNode Src = (DNode) g.getNode(src);
@@ -212,15 +194,14 @@ public class Graph_Algo implements graph_algorithms{
 		Src.setWeight(0);
 
 		Sourcdijkstra(Src);
-		//if(Dst.getWeight()==Double.MAX_VALUE) 
-		//  			throw new  RuntimeException("Nodes arent connected");
-
+		if(Dst.getWeight()==Double.MAX_VALUE)
+		  			throw new  RuntimeException("Nodes arent connected");
 		return Dst.getWeight();
 
 	}
 
 
-	public void Sourcdijkstra (DNode src) 
+	public void Sourcdijkstra (DNode src)
 	{ //need to test the first if
 		if (src.isVisited())return;
 		//	System.out.println("this is "+src.getKey()+" Node");
@@ -251,7 +232,7 @@ public class Graph_Algo implements graph_algorithms{
 			e=(Dedge) I.next();
 			DNode n =(DNode) g.getNode(e.getDest());
 			Sourcdijkstra(n);
-		}	
+		}
 	}
 
 
@@ -262,14 +243,14 @@ public class Graph_Algo implements graph_algorithms{
 		DNode src = (DNode) g.getNode( e.getSrc() );
 		double NewWeight= e.getWeight()+src.getWeight();
 		if(NewWeight<dest.getWeight()) {
-			dest.setWeight(NewWeight);	
+			dest.setWeight(NewWeight);
 			SetShortList(src,dest);
 		}
 	}
 
 
-	public void SetShortList(DNode src,DNode dest) {	
-		List<node_data> ans = new ArrayList <node_data> ();	
+	public void SetShortList(DNode src,DNode dest) {
+		List<node_data> ans = new ArrayList <node_data> ();
 		ans.addAll(src.GetShortestPath());
 		ans.add(dest);
 		dest.setShortestPath(ans);
@@ -292,11 +273,11 @@ public class Graph_Algo implements graph_algorithms{
 		return e;
 	}
 
-	public void invinityAll() 
+	public void invinityAll()
 	{
 		Iterator<node_data> I= g.getV().iterator();
 		DNode n= new  DNode();
-		while(I.hasNext()) 
+		while(I.hasNext())
 		{
 			n= (DNode) I.next();
 			n.setWeight(Double.MAX_VALUE);
@@ -309,27 +290,45 @@ public class Graph_Algo implements graph_algorithms{
 	public List<node_data> shortestPath(int src, int dest) {
 		double x =shortestPathDist(src, dest);
 		DNode n=(DNode) g.getNode(dest);
-		return n.GetShortestPath();		
+		return n.GetShortestPath();
 
 	}
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
 		//if(!this.isConnected()) return null;
-		//all0(g);		
-		List<node_data> ans = new ArrayList <node_data> ();	
-		List<node_data> tmp = new ArrayList <node_data> ();	
+		//all0(g);
+		int count = 0;
+		List<node_data> ans = new ArrayList <node_data> ();
 
 		Iterator<Integer> I= targets.iterator();
 		int	src= I.next();
 		int dest;
-		if(targets.size()<2) return  (List<node_data>) g.getNode(src);
-
+		//if(targets.size()<2) return  (List<node_data>) g.getNode(src);
+		List<node_data> tmp0 = new ArrayList <node_data> ();
+		dest=I.next();
+		count++;
+		System.out.println(src+" --> " +dest );
+		tmp0=shortestPath(src, dest);
+		for(int i = 0 ;i<tmp0.size()-1;i++) {
+			ans.add(tmp0.get(i));
+		}
+		src=dest;
 		while(I.hasNext())
 		{
+			List<node_data> tmp = new ArrayList <node_data> ();
 			dest=I.next();
+			count++;
+			System.out.println(src+" --> " +dest );
 			tmp=shortestPath(src, dest);
-			ans.addAll(tmp);
+			for(int i =1 ;i<tmp.size()-1;i++) {
+				ans.add(tmp.get(i));
+
+			}
+			if(count == targets.size()-1) {
+				ans.add(tmp.get(tmp.size()-1));
+				break;
+			}
 			src=dest;
 		}
 		return ans;
@@ -337,8 +336,8 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public graph copy() {
-			
-		return g.DGraphCopy(g); 
+
+		return g.DGraphCopy(g);
 
 	}
 
