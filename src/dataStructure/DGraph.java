@@ -51,7 +51,7 @@ public class DGraph implements graph ,Serializable{
 		if (this.Vertex.isEmpty())return null;
 		if(!this.Vertex.containsKey(key)) 
 		{			
-		throw new  RuntimeException("src not exist");
+		throw new  RuntimeException("src not exist"+key);
 		}
 		return this.Vertex.get(key);
 
