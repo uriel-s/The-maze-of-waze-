@@ -98,4 +98,10 @@ class Graph_AlgoTest {
 		Dedge e = (Dedge) newg.getEdge(3, 0);
 	}
 
+//	@
+//	void testInit{
+//		
+//	}
+
+	
 }
