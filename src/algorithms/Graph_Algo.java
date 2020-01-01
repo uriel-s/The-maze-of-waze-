@@ -30,8 +30,8 @@ public class Graph_Algo implements graph_algorithms{
 	DGraph g;
 	public List<node_data> list = new ArrayList <node_data> ();	
 
-	
-	
+
+
 	public DGraph getG() {
 		return g;
 	}
@@ -43,7 +43,7 @@ public class Graph_Algo implements graph_algorithms{
 	}
 
 
-	
+
 	public Graph_Algo()
 	{
 		this.g = new DGraph();
@@ -54,22 +54,19 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public void init(String file_name) {
-		//DGraph g =null;          
-
-		try
+		graph f = null;
+		try		
 		{    
 			FileInputStream file = new FileInputStream(file_name); 
 			ObjectInputStream in = new ObjectInputStream(file); 
 
-			DGraph g = (DGraph)in.readObject(); 
-            init(g);
-			//in.close(); 
-			//file.close(); 
+			f = (graph)in.readObject(); 
+			this.init(f);
+			in.close(); 
+			file.close(); 
 
 			System.out.println("Object has been deserialized"); 
-			System.out.println(g);
 		} 
-
 		catch(IOException ex) 
 		{ 
 			System.out.println("IOException is caught"); 
@@ -79,33 +76,24 @@ public class Graph_Algo implements graph_algorithms{
 		{ 
 			System.out.println("ClassNotFoundException is caught"); 
 		} 
-
 	}
-
-
-
-
 	@Override
 	public void save(String file_name) {
-		//DGraph g =this.g;          
+		graph f = this.copy();
 		try
 		{    
 			FileOutputStream file = new FileOutputStream(file_name); 
 			ObjectOutputStream out = new ObjectOutputStream(file); 
-
-			out.writeObject(this.g); 
-
+			out.writeObject(f); 
 			out.close(); 
 			file.close(); 
-
-			System.out.println("Object has been serialized"); 
+			System.out.println("Object has been serialized");
 		}   
 		catch(IOException ex) 
 		{ 
-			System.out.println("IOException is caught++"); 
+			//	ex.printStackTrace();
+			System.out.println("IOException is caught"); 
 		} 
-
-
 	}
 
 	@Override
@@ -206,9 +194,8 @@ public class Graph_Algo implements graph_algorithms{
 		Src.setWeight(0);
 
 		Sourcdijkstra(Src);
-		//if(Dst.getWeight()==Double.MAX_VALUE) 
-		//  			throw new  RuntimeException("Nodes arent connected");
-
+		if(Dst.getWeight()==Double.MAX_VALUE) 
+		  			throw new  RuntimeException("Nodes arent connected");
 		return Dst.getWeight();
 
 	}
@@ -309,21 +296,39 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
-		if(!this.isConnected()) return null;
-		//all0(g);		
+		//if(!this.isConnected()) return null;
+		//all0(g);
+		int count = 0;
 		List<node_data> ans = new ArrayList <node_data> ();	
-		List<node_data> tmp = new ArrayList <node_data> ();	
 
 		Iterator<Integer> I= targets.iterator();
 		int	src= I.next();
 		int dest;
-		if(targets.size()<2) return  (List<node_data>) g.getNode(src);
-
+		//if(targets.size()<2) return  (List<node_data>) g.getNode(src);
+		List<node_data> tmp0 = new ArrayList <node_data> ();	
+		dest=I.next();
+		count++;
+		System.out.println(src+" --> " +dest );
+		tmp0=shortestPath(src, dest);
+		for(int i = 0 ;i<tmp0.size()-1;i++) {
+			ans.add(tmp0.get(i));
+		}
+		src=dest;		
 		while(I.hasNext())
-		{
+		{	
+			List<node_data> tmp = new ArrayList <node_data> ();	
 			dest=I.next();
+			count++;
+			System.out.println(src+" --> " +dest );
 			tmp=shortestPath(src, dest);
-			ans.addAll(tmp);
+			for(int i =1 ;i<tmp.size()-1;i++) {
+				ans.add(tmp.get(i));
+				
+			}
+			if(count == targets.size()-1) {
+				ans.add(tmp.get(tmp.size()-1));
+				break;
+			}
 			src=dest;
 		}
 		return ans;
@@ -331,7 +336,7 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public graph copy() {
-			
+
 		return g.DGraphCopy(g); 
 
 	}
