@@ -39,7 +39,7 @@ class Ex2Test {
 
 	@Test
 	void testConnectivity() {
-		_alg = new Graph_Algo(_graph);
+		_alg = new Graph_Algo(_graph);	
 		boolean con = _alg.isConnected();
 		System.out.println("aaa");
 		if(!con) {
@@ -57,7 +57,10 @@ class Ex2Test {
 		return ans;
 	}
 	boolean drawGraph(graph g) { 
-		// YOUR GUI graph draw 
+		DGraph DGraph1 = new DGraph();
+		DGraph1 = (DGraph) g;
+		graph_gui graph = new graph_gui(DGraph1);
+		graph.setVisible(true);
 		return true;
 		
 	}
