@@ -331,30 +331,30 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("mouseClicked");
+		//System.out.println("mouseClicked");
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		System.out.println("mousePressed");
+		//System.out.println("mousePressed");
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		System.out.println("mouseReleased");
+		//System.out.println("mouseReleased");
 
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		System.out.println("mouseEntered");
+		//System.out.println("mouseEntered");
 
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		System.out.println("mouseExited");
+		//System.out.println("mouseExited");
 	}
 
 
