@@ -68,7 +68,7 @@ public class tester {
 		ans.add(3);
 		ans.add(4);
 
-		System.out.println(g.shortestPath(0, 5));
+	//	System.out.println(g.shortestPath(0, 5));
 			System.out.println("g.TCP="+g.TSP(ans));
 		//		System.out.println("g copy TCP="+g2.TSP(ans));
 		//		System.out.println("testing deep copy - changing only one graph ////");

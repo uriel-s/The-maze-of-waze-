@@ -105,7 +105,7 @@ public class Graph_Algo implements graph_algorithms{
 	public boolean isConnected() {
 		Iterator<node_data> iter= g.getV().iterator();
 		DNode root= (DNode) iter.next();
-		
+
 		//first set all node to "unvisited."		
 		all0(g);
 		//than set all the Node that connect with Root to visited Nodes with the func Rootconect.
@@ -134,7 +134,7 @@ public class Graph_Algo implements graph_algorithms{
 	}
 
 
-//this fuctin set all the vertexes in a graph to "unvisited" nodes(boolean)
+	//this fuctin set all the vertexes in a graph to "unvisited" nodes(boolean)
 	public void all0(DGraph g) {
 		Iterator<node_data> itrerator= g.getV().iterator();
 		DNode n= new DNode();
@@ -142,14 +142,14 @@ public class Graph_Algo implements graph_algorithms{
 		{
 			n= (DNode) itrerator.next();
 			n.setVisited(false);
-		//make the shortpath list empty;
+			//make the shortpath list empty;
 			List<node_data> l = new ArrayList <node_data> ();
 			l.add(n);
 			n.setShortestPathN(l);		
 		}
 
 	}
-//this func checking(and set "isvisited") if there is a way beetwen node root to other nodes
+	//this func checking(and set "isvisited") if there is a way beetwen node root to other nodes
 	//only nodes that have way from root to the, will be "visited" 
 	public void Rootconect(DNode root)
 	{
@@ -177,7 +177,7 @@ public class Graph_Algo implements graph_algorithms{
 		if(n.isVisited())return false;
 		n.setVisited(true);
 		if(n.getEdges().containsKey(dest))return true;
-		
+
 		Iterator<edge_data> iter= g.getE(n.getKey()).iterator();
 		Dedge e= new Dedge(0);
 
@@ -216,7 +216,7 @@ public class Graph_Algo implements graph_algorithms{
 		if (src.isVisited())return;
 		Iterator<edge_data> I= g.getE(src.getKey()).iterator();
 		Dedge e= new Dedge(0);
-	
+
 		//set all the nibs the min dis from src to them.
 		while (I.hasNext() )
 		{
@@ -224,7 +224,7 @@ public class Graph_Algo implements graph_algorithms{
 			minWeight(e);
 		}
 		src.setVisited(true);
-      // do the same to other niebs and than continue with Recursion.
+		// do the same to other niebs and than continue with Recursion.
 		NeighborsDijkstra(src);
 	}
 
@@ -242,7 +242,7 @@ public class Graph_Algo implements graph_algorithms{
 	}
 
 
-   //set the small weight(distance from root) in node between his correct weight and new weight.
+	//set the small weight(distance from root) in node between his correct weight and new weight.
 	//new wight = the weight in the node src and the  edge that conect to the node;
 	public void  minWeight(Dedge e)
 	{
@@ -254,16 +254,16 @@ public class Graph_Algo implements graph_algorithms{
 			//sendind to func that wirting the SHortetsPAsth nodes list
 			List<node_data> l=SetShortList(src,dest);
 			dest.setShortestPathN(l);
-			
+
 		}
 	}
 
-//set the path to the dst  node / add the new node to the list of his dst node  
+	//set the path to the dst  node / add the new node to the list of his dst node  
 	public List<node_data> SetShortList(DNode src,DNode dest) {
 		List<node_data> ans = new ArrayList <node_data> ();
 		ans.addAll(src.GetShortestPath());
 		ans.add(dest);
-	return ans;
+		return ans;
 	}
 
 
@@ -282,7 +282,7 @@ public class Graph_Algo implements graph_algorithms{
 		}
 		return e;
 	}
-//make the distance of all the nodes in the graph infinity VALUE
+	//make the distance of all the nodes in the graph infinity VALUE
 	public void invinityAll()
 	{
 		Iterator<node_data> I= g.getV().iterator();
@@ -295,11 +295,11 @@ public class Graph_Algo implements graph_algorithms{
 	}
 
 
-//send the nodes list of the way from one node to other/
+	//send the nodes list of the way from one node to other/
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
 		//using this function to get the list 
-		
+
 		double x =shortestPathDist(src, dest);
 		DNode n=(DNode) g.getNode(dest);
 		return n.GetShortestPath();
@@ -308,47 +308,29 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
-		//if(!this.isConnected()) return null;
-		//all0(g);
-		int count = 0;
-		List<node_data> ans = new ArrayList <node_data> ();
-		if(targets.size()==2)
-			{
-			ans = shortestPath(targets.get(0), targets.get(1)); 
-            return ans;			
-			}
 
+		if(targets.size()==2)
+		{
+			return shortestPath(targets.get(0), targets.get(1)); 
+		}
+		List<node_data> ans = new ArrayList <node_data> ();
 		Iterator<Integer> I= targets.iterator();
 		int	src= I.next();
 		int dest;
-		//if(targets.size()<2) return  (List<node_data>) g.getNode(src);
-		List<node_data> tmp0 = new ArrayList <node_data> ();
-		dest=I.next();
-		count++;
-		System.out.println(src+" --> " +dest );
 
-		tmp0=shortestPath(src, dest);
-		for(int i = 0 ;i<tmp0.size()-1;i++) {
-			ans.add(tmp0.get(i));
-		}
-		src=dest;
 		while(I.hasNext())
 		{
-			List<node_data> tmp = new ArrayList <node_data> ();
 			dest=I.next();
-			count++;
+			//count++;
 			System.out.println(src+" --> " +dest );
-			tmp=shortestPath(src, dest);
-			for(int i =1 ;i<tmp.size()-1;i++) {
-				ans.add(tmp.get(i));
-
-			}
-			if(count == targets.size()-1) {
-				ans.add(tmp.get(tmp.size()-1));
-				break;
-			}
+			List<node_data> tmp=shortestPath(src, dest);
+			ans.addAll(tmp);
+			ans.remove(ans.size()-1);
 			src=dest;
+
 		}
+		DNode n = (DNode) g.getNode(src);
+		ans.add(n);
 		return ans;
 	}
 
