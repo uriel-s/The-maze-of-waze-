@@ -20,7 +20,7 @@ public class sdf {
 		Point3D p1= new Point3D(50, 50);
 		Point3D p2= new Point3D(60, 40);
 		Point3D p3= new Point3D(5,90);
-		Point3D p4= new Point3D(15, 10);
+		Point3D p4= new Point3D(15, 0);
 		Point3D p5= new Point3D(20, 50);
 		Point3D p6= new Point3D(10, 40);
 		Point3D p7= new Point3D(70,-10);
