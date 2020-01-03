@@ -81,11 +81,12 @@ class Graph_AlgoTest {
 		ans.add(0);
 		ans.add(1);
 		ans.add(2);
-		//	ans.add(3);
+		//ans.add(3);
 
 		List<node_data> exp =algo.TSP(ans) ;
 		int answer=exp.size();
-		assertEquals(answer,7 );
+		System.out.println(exp);
+		assertEquals(answer,5);
 
 	}
 
