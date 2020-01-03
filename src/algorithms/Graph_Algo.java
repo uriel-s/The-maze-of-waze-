@@ -142,6 +142,10 @@ public class Graph_Algo implements graph_algorithms{
 		{
 			n= (DNode) itrerator.next();
 			n.setVisited(false);
+		//make the shortpath list empty;
+			List<node_data> l = new ArrayList <node_data> ();
+			l.add(n);
+			n.setShortestPathN(l);		
 		}
 
 	}
@@ -247,17 +251,19 @@ public class Graph_Algo implements graph_algorithms{
 		double NewWeight= e.getWeight()+src.getWeight();
 		if(NewWeight<dest.getWeight()) {
 			dest.setWeight(NewWeight);
-			//sendind to func that wirting the SHortetsPAsth
-			SetShortList(src,dest);
+			//sendind to func that wirting the SHortetsPAsth nodes list
+			List<node_data> l=SetShortList(src,dest);
+			dest.setShortestPathN(l);
+			
 		}
 	}
 
 //set the path to the dst  node / add the new node to the list of his dst node  
-	public void SetShortList(DNode src,DNode dest) {
+	public List<node_data> SetShortList(DNode src,DNode dest) {
 		List<node_data> ans = new ArrayList <node_data> ();
 		ans.addAll(src.GetShortestPath());
 		ans.add(dest);
-		dest.setShortestPath(ans);
+	return ans;
 	}
 
 
@@ -293,6 +299,7 @@ public class Graph_Algo implements graph_algorithms{
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
 		//using this function to get the list 
+		
 		double x =shortestPathDist(src, dest);
 		DNode n=(DNode) g.getNode(dest);
 		return n.GetShortestPath();

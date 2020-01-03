@@ -116,7 +116,7 @@ public class DNode implements node_data, Serializable{
 		return this.ShortestPath;
 	}
 
-	public  void setShortestPath(List l) {
+	public  void setShortestPathN(List l) {
 		this.ShortestPath=l;
 	}
 

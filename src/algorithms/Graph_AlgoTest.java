@@ -29,7 +29,7 @@ class Graph_AlgoTest {
 		d.addNode(n2);
 		d.addNode(n3);
 		d.connect(0, 1, 118);
-		d.connect(0, 2, 22);
+		d.connect(0, 2, 12);
 		d.connect(1, 0, 22);	
 		d.connect(1, 2, 22);
 		d.connect(2, 0, 23);
@@ -55,7 +55,7 @@ class Graph_AlgoTest {
 		Graph_Algo algo=	tester();
 
 		double ans=algo.shortestPathDist(0,1);
-		assertEquals(ans,45.0 );
+	 	assertEquals(ans,35.0 );
 
 	}
 
