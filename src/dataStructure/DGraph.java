@@ -10,6 +10,7 @@ public class DGraph implements graph ,Serializable{
 	private int MC;
 	private HashMap<Integer, node_data> Vertex;
 	public static  int I=0;
+	//constructors/
 
 	public  DGraph() 
 	{
@@ -30,6 +31,7 @@ public class DGraph implements graph ,Serializable{
 		return ans;
 	}	
 
+	//function that (deep) copy the vertexes in a graph/()
 	public HashMap<Integer, node_data> DeepCopyVertex(HashMap<Integer, node_data> vertex)
 	{ 
 		HashMap<Integer, node_data> ans = new HashMap<>(); 	
@@ -48,13 +50,16 @@ public class DGraph implements graph ,Serializable{
 
 	@Override
 	public node_data getNode(int key) {
-		if (this.Vertex.isEmpty())return null;
+		if (this.Vertex.isEmpty())
+		{
+			System.out.println("this graph is empty");
+			return null;
+		}
 		if(!this.Vertex.containsKey(key)) 
 		{			
-		throw new  RuntimeException("src not exist"+key);
+			throw new  RuntimeException("Node is  not exist"+key);
 		}
 		return this.Vertex.get(key);
-
 	}
 
 	@Override
@@ -64,8 +69,10 @@ public class DGraph implements graph ,Serializable{
 			throw new  RuntimeException("src not exist");
 		if(!Vertex.containsKey(dest))
 			throw new  RuntimeException("destetion not exist");
+
 		DNode n =  (DNode) this.Vertex.get(src);
-		if(!n.getEdges().containsKey(dest)) {
+		if(!n.getEdges().containsKey(dest))
+		{
 			System.out.println("edge is not exist");
 			return null;
 		}
@@ -83,8 +90,8 @@ public class DGraph implements graph ,Serializable{
 		IDcounter ++;
 		MC++;
 	}
-
-	@Override
+	//this function make Edge between two Vertexes.
+	@Override 
 	public void connect(int src, int dest, double w) {
 
 		if(!Vertex.containsKey(src)) {
@@ -114,7 +121,7 @@ public class DGraph implements graph ,Serializable{
 		DNode n = (DNode) this.getNode(node_id);
 		return n.getEdges().values();
 	}
-	//need to test again 
+	//delete node from the graph . 
 	@Override
 	public node_data removeNode(int key)
 	{
@@ -125,10 +132,11 @@ public class DGraph implements graph ,Serializable{
 		DNode n= new DNode();
 		n=(DNode) this.getNode(key);
 		node_data x= n.copyN(n);
+
+		//disconect all the edges that connect with this Node
 		while(itrerator.hasNext())
 		{
 			n =(DNode) itrerator.next();
-
 			if (n.getEdges().containsKey(key))
 			{
 				n.getEdges().remove(key);
@@ -140,7 +148,6 @@ public class DGraph implements graph ,Serializable{
 		this.Vertex.remove(key); 
 		IDcounter--;
 		MC++;
-		
 		return x;
 	}
 	@Override
@@ -150,6 +157,7 @@ public class DGraph implements graph ,Serializable{
 			throw new  RuntimeException("src not exist");}
 		if(!Vertex.containsKey(dest)) 
 			throw new  RuntimeException("dest not exist");
+		
 		DNode n=(DNode) this.Vertex.get(src);
 		Dedge x= n.getEdge(dest).copyE();
 		n.RemoveEdge(dest);
@@ -172,7 +180,7 @@ public class DGraph implements graph ,Serializable{
 	public int getMC() {
 		return this.MC;
 	}
-	
+
 
 
 }

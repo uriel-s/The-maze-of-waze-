@@ -21,7 +21,7 @@ public class DNode implements node_data, Serializable{
 	private List<node_data> ShortestPath;
 	private Object list;
 
-
+//constructors
 
 	public  DNode() {
 		this.key=DGraph.I;
@@ -116,7 +116,7 @@ public class DNode implements node_data, Serializable{
 		return this.ShortestPath;
 	}
 
-	public  void setShortestPath(List l) {
+	public  void setShortestPathN(List l) {
 		this.ShortestPath=l;
 	}
 
@@ -148,7 +148,7 @@ public class DNode implements node_data, Serializable{
 		String s = Integer.toString(this.key);
 	  return s;
 	}
-
+//HashMap repesent the other  Vertex this one conneect with/nibires
 	public HashMap<Integer, edge_data> getEdges() {
 		return this.Edges;
 	}
@@ -168,7 +168,7 @@ public class DNode implements node_data, Serializable{
 	
 	
 	
-	
+	// function for copy the nibrires vertexes
 	
 	private HashMap<Integer, edge_data> EdgesDeepCopy() {
 		Iterator<edge_data> I=    this.getED().iterator();

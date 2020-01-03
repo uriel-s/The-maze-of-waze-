@@ -10,7 +10,7 @@ public class Dedge implements edge_data, Serializable{
 	private int Tag;
 	private double Weight;
 	private String Info;
-
+//constructors
 	public Dedge(double w) {
 		this.Weight=w;
 
