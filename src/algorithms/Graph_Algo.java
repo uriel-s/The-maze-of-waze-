@@ -300,10 +300,9 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
-		//if(!this.isConnected()) return null;
-		//all0(g);
 		int count = 0;
 		List<node_data> ans = new ArrayList <node_data> ();
+		
 		if(targets.size()==2)
 			{
 			ans = shortestPath(targets.get(0), targets.get(1)); 
@@ -313,7 +312,6 @@ public class Graph_Algo implements graph_algorithms{
 		Iterator<Integer> I= targets.iterator();
 		int	src= I.next();
 		int dest;
-		//if(targets.size()<2) return  (List<node_data>) g.getNode(src);
 		List<node_data> tmp0 = new ArrayList <node_data> ();
 		dest=I.next();
 		count++;
