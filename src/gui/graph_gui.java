@@ -56,7 +56,10 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 		this.gr=g;
 		initGUI(gr);
 	}
-
+	/*
+	 * initiate a gui window using JFrame which shows a menu of choices do display and draw them
+	 * using the algorithms of the project   
+	 */
 	private void initGUI(DGraph gr) 
 	{
 		this.setSize(500, 500);
@@ -71,11 +74,9 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 		this.setMenuBar(menuBar);
 		MenuItem item0 = new MenuItem("draw graph");
 		item0.addActionListener(this);
-		
+
 		MenuItem item1 = new MenuItem("shortest Path way");
 		item1.addActionListener(this);
-
-		
 
 		MenuItem item3 = new MenuItem("tsp");
 		item3.addActionListener(this);
@@ -88,8 +89,8 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 
 		MenuItem item6 = new MenuItem("draw from file");
 		item6.addActionListener(this);
-		
-		
+
+
 		menu1.add(item0);
 		menu1.add(item1);
 		menu1.add(item3);
@@ -102,7 +103,7 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 		this.addMouseListener(this);
 
 	}
-
+    //open the stddraw window and draw the graph
 	public void paint() {
 
 		StdDraw.setCanvasSize(1000, 500);
@@ -111,7 +112,7 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 		Collection<node_data> search = gr.getV();
 		StdDraw.setPenRadius(0.005);
 
-		for (node_data d : search) 
+		for (node_data d : search)   //outside loop is drawing each node
 		{
 			StdDraw.setPenColor(Color.BLUE);
 			StdDraw.setPenRadius(0.015);
@@ -122,7 +123,7 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 			StdDraw.point(x, y);
 			StdDraw.text(x,y+4,""+k);
 
-			for(edge_data e :  gr.getE(k)) 
+			for(edge_data e :  gr.getE(k)) //inner loop is drawing each node's edges
 			{
 				StdDraw.setPenColor(Color.RED);
 				StdDraw.setPenRadius(0.004);
@@ -132,6 +133,9 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 				double y1 = n.getLocation().y();
 				StdDraw.line(x, y, x1, y1);
 				StdDraw.setPenColor(Color.BLACK);
+				/*
+				 * draw the weight on 40% way of the edge
+				 */
 				double c=0,s=0;
 				if(x<x1 && y<y1) {
 					c=x+(Math.abs(x-x1)*0.4);
@@ -150,7 +154,9 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 					s=y-(Math.abs(y-y1)*0.4);
 				}
 				StdDraw.text(c,s,""+ e.getWeight());
-
+				/*
+				 * draw yellow point on 80% way of the edge
+				 */
 				StdDraw.setPenColor(Color.YELLOW);
 				double a=0,b=0;
 				if(x<x1 && y<y1) {
@@ -175,6 +181,7 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 		}
 	}
 	@Override
+	//choose witch function to apply according to the action performed from the menu 
 	public void actionPerformed(ActionEvent e) 
 	{
 		String str = e.getActionCommand();
@@ -201,7 +208,7 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 
 	}
 
-	
+
 
 	private void tsp() {
 		try {
@@ -219,9 +226,9 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 			newTsp.init(gr);
 			paint();
 			List<node_data> dis = newTsp.TSP(targets);
-			for(node_data x : dis) {
-				System.out.print(x.getKey()+"\t");
-			}
+//			for(node_data x : dis) {
+//				System.out.print(x.getKey()+"\t");
+//			}
 			paint();
 			for (int i=0; i<dis.size()-1; i++) {
 				double x1 = dis.get(i).getLocation().x();
@@ -240,24 +247,26 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 		}
 
 	}
-
+   /*
+    * draw the graph and show on the bottom of the screen if is connected or not
+    */
 
 	private void isConnected() {
 		paint();
 		StdDraw.setPenColor();
 		StdDraw.setFont();
-		
+
 
 		Graph_Algo graphIsC = new Graph_Algo();
 		graphIsC.init(gr);
 		if(graphIsC.isConnected()) {
 			StdDraw.text(0,-95,"the graph is connected" );
-			
+
 		} else {
-		
+
 			StdDraw.text(0,-95,"the graph is NOT connected");
 
-			
+
 		}
 	}
 
@@ -276,10 +285,10 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 		if (userSelection == JFileChooser.APPROVE_OPTION) {
 			System.out.println("Save as file: " + j.getSelectedFile().getAbsolutePath());
 			t.save(j.getSelectedFile().getName());
-			
+
 		}
 	}
-	
+
 	private void drawfromfile() {
 		this.gr = null;
 		JFileChooser jf = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -292,25 +301,25 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 		this.gr = gra.getG();
 		paint();
 	}
-	
-	
+
+
 	public void shortest_Path() {
 		try {
 			JFrame in = new JFrame();
 			String Source = JOptionPane.showInputDialog(in,"Enter Source-Node:");
 			String Dest = JOptionPane.showInputDialog(in,"Enter Destination-Node:");
 
-			int srcSSP = Integer.parseInt(Source);
-			int destSSP = Integer.parseInt(Dest);
+			int src = Integer.parseInt(Source);
+			int dest = Integer.parseInt(Dest);
 
-			Graph_Algo newGSSP = new Graph_Algo();
-			newGSSP.init(gr);
+			Graph_Algo G = new Graph_Algo();
+			G.init(gr);
 
-			List<node_data> dis = newGSSP.shortestPath(srcSSP, destSSP);
-			double distance = newGSSP.shortestPathDist(srcSSP, destSSP);
+			List<node_data> dis = G.shortestPath(src, dest);
+			double distance = G.shortestPathDist(src, dest);
 			paint();
 			StdDraw.setPenColor();
-			StdDraw.text(0, -95, "the shortest distance between "+srcSSP+" --> "+destSSP+" is :"+distance);
+			StdDraw.text(0, -95, "the shortest distance between "+src+" --> "+dest+" is :"+distance);
 			for (int i=0; i<dis.size()-1; i++) {
 				double x1 = dis.get(i).getLocation().x();
 				double y1 = dis.get(i).getLocation().y();
@@ -358,5 +367,5 @@ public class graph_gui extends JFrame implements ActionListener, MouseListener
 	}
 
 
-	
+
 }
