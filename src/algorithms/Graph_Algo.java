@@ -116,7 +116,7 @@ public class Graph_Algo implements graph_algorithms{
 		Iterator<node_data> iter= g.getV().iterator();
 		DNode root= (DNode) iter.next();
 
-		//first set all node to "unvisited."		
+		//first set all node to "unvisited."
 		all0(g);
 		//than set all the Node that connect with Root to visited Nodes with the func Rootconect.
 		Rootconect(root);
@@ -155,12 +155,12 @@ public class Graph_Algo implements graph_algorithms{
 			//make the shortpath list empty;
 			List<node_data> l = new ArrayList <node_data> ();
 			l.add(n);
-			n.setShortestPathN(l);		
+			n.setShortestPathN(l);
 		}
 
 	}
 	//this func checking(and set "isvisited") if there is a way beetwen node root to other nodes
-	//only nodes that have way from root to the, will be "visited" 
+	//only nodes that have way from root to the, will be "visited"
 	public void Rootconect(DNode root)
 	{
 		if (root.isVisited()) return ;
@@ -177,7 +177,7 @@ public class Graph_Algo implements graph_algorithms{
 			Rootconect(n) ;
 		}
 	}
-	//checking if there eneyway from src vertex to dest vertex . 
+	//checking if there eneyway from src vertex to dest vertex .
 	public boolean ConnectWith(int src,int dest)
 	{
 		//if they connect return true ,other keep looking with niebieors if there away to dst
@@ -202,7 +202,7 @@ public class Graph_Algo implements graph_algorithms{
 		return false;
 	}
 
-	@Override// using dijkstra algorithm 
+	@Override// using dijkstra algorithm
 	public double shortestPathDist(int src, int dest) {
 		// set all the  Nodes wight= infinit .src Node 0
 		this.invinityAll();
@@ -211,9 +211,9 @@ public class Graph_Algo implements graph_algorithms{
 		DNode Dst = (DNode) g.getNode(dest);
 
 		Src.setWeight(0);
-		//set the distance of all the Nodes 
+		//set the distance of all the Nodes
 		Sourcdijkstra(Src);
-		//if there isnt way from src-->dest  
+		//if there isnt way from src-->dest
 		if(Dst.getWeight()==Double.MAX_VALUE)
 			throw new  RuntimeException("Nodes arent connected");
 		return Dst.getWeight();
@@ -238,7 +238,7 @@ public class Graph_Algo implements graph_algorithms{
 		NeighborsDijkstra(src);
 	}
 
-	// help func to  Dijkstra/ sending all the nibs for Dijkstra func 
+	// help func to  Dijkstra/ sending all the nibs for Dijkstra func
 	public void NeighborsDijkstra (DNode src)
 	{
 		Iterator<edge_data> I= g.getE(src.getKey()).iterator();
@@ -268,7 +268,7 @@ public class Graph_Algo implements graph_algorithms{
 		}
 	}
 
-	//set the path to the dst  node / add the new node to the list of his dst node  
+	//set the path to the dst  node / add the new node to the list of his dst node
 	public List<node_data> SetShortList(DNode src,DNode dest) {
 		List<node_data> ans = new ArrayList <node_data> ();
 		ans.addAll(src.GetShortestPath());
@@ -308,7 +308,7 @@ public class Graph_Algo implements graph_algorithms{
 	//send the nodes list of the way from one node to other/
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
-		//using this function to get the list 
+		//using this function to get the list
 
 		double x =shortestPathDist(src, dest);
 		DNode n=(DNode) g.getNode(dest);
@@ -321,7 +321,7 @@ public class Graph_Algo implements graph_algorithms{
 		
 		if(targets.size()==2)
 		{
-			return shortestPath(targets.get(0), targets.get(1)); 
+			return shortestPath(targets.get(0), targets.get(1));
 		}
 		List<node_data> ans = new ArrayList <node_data> ();
 		Iterator<Integer> I= targets.iterator();
@@ -331,8 +331,8 @@ public class Graph_Algo implements graph_algorithms{
 		while(I.hasNext())
 		{
 			dest=I.next();
-			//count++;
-			System.out.println(src+" --> " +dest );
+			
+			//System.out.println(src+" --> " +dest );
 			List<node_data> tmp=shortestPath(src, dest);
 			ans.addAll(tmp);
 			ans.remove(ans.size()-1);
