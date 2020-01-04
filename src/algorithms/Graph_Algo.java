@@ -40,6 +40,9 @@ public class Graph_Algo implements graph_algorithms{
 		this.g=(DGraph) g;
 
 	}
+	/**
+	 * Init this set of algorithms on the parameter - graph.
+	 */
 	public void init(graph g) {
 		this.g=(DGraph) g;
 	}
@@ -56,7 +59,10 @@ public class Graph_Algo implements graph_algorithms{
 	}
 
 
-
+	/**
+	 * Init a graph from file
+	 * @param file_name
+	 */
 	@Override
 	public void init(String file_name) {
 		graph f = null;
@@ -82,6 +88,10 @@ public class Graph_Algo implements graph_algorithms{
 			System.out.println("ClassNotFoundException is caught");
 		}
 	}
+	/** Saves the graph to a file.
+	 * 
+	 * @param file_name
+	 */
 	@Override
 	public void save(String file_name) {
 		graph f = this.copy();
@@ -308,7 +318,7 @@ public class Graph_Algo implements graph_algorithms{
 
 	@Override
 	public List<node_data> TSP(List<Integer> targets) {
-
+		
 		if(targets.size()==2)
 		{
 			return shortestPath(targets.get(0), targets.get(1)); 
@@ -317,7 +327,7 @@ public class Graph_Algo implements graph_algorithms{
 		Iterator<Integer> I= targets.iterator();
 		int	src= I.next();
 		int dest;
-
+		
 		while(I.hasNext())
 		{
 			dest=I.next();
@@ -327,10 +337,10 @@ public class Graph_Algo implements graph_algorithms{
 			ans.addAll(tmp);
 			ans.remove(ans.size()-1);
 			src=dest;
-
+			
 		}
 		DNode n = (DNode) g.getNode(src);
-		ans.add(n);
+ans.add(n);
 		return ans;
 	}
 
