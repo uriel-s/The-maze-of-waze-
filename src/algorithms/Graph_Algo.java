@@ -63,6 +63,7 @@ public class Graph_Algo implements graph_algorithms{
 	 * Init a graph from file
 	 * @param file_name
 	 */
+//function
 	@Override
 	public void init(String file_name) {
 		graph f = null;
