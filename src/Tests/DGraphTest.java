@@ -1,4 +1,4 @@
-package dataStructure;
+package Tests;
 
 import static org.junit.Assume.assumeFalse;
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,7 +7,11 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
+
 import dataStructure.DGraph;
+import dataStructure.DNode;
+import dataStructure.Dedge;
+import dataStructure.edge_data;
 
 class DGraphTest {
 	DGraph DGrahp1 = new DGraph();
@@ -62,8 +66,10 @@ class DGraphTest {
 		d.addNode(n);
 		d.addNode(n1);
 		d.connect(0, 1, 2);
-		Dedge expected = new Dedge();		
-		expected= (Dedge) d.getEdge(0, 1);
+		// expected = new Dedge();		
+
+		 Dedge expected= (Dedge) d.getEdge(0, 1);
+
 		assumeFalse( (expected==null));
 
 	}

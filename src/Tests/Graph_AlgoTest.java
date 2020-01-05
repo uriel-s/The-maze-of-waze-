@@ -1,4 +1,4 @@
-package algorithms;
+package Tests;
 
 import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeThat;
@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import algorithms.Graph_Algo;
 import dataStructure.DGraph;
 import dataStructure.DNode;
 import dataStructure.Dedge;
@@ -81,12 +82,12 @@ class Graph_AlgoTest {
 		ans.add(0);
 		ans.add(1);
 		ans.add(2);
-		//ans.add(3);
+		ans.add(3);
 
 		List<node_data> exp =algo.TSP(ans) ;
 		int answer=exp.size();
-		System.out.println(exp);
-		assertEquals(answer,5);
+		//System.out.println(answer);
+		assertEquals(answer,6);
 
 	}
 
