@@ -1,5 +1,4 @@
-# Ex2
-the maze of waze
+# the maze of waze
 
  this project represent a **directed whighted graph** and use some algorithms on the graph.
  
